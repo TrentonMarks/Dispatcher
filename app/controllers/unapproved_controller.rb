@@ -17,17 +17,10 @@ class UnapprovedController < ApplicationController
 
     # GET/SHOW
     #get show (show credit receipt-img of id)
-    def creditCardShow
-        render json: Unapproved.findCreditCard(params["id"])
+    def receiptShow
+        render json: Unapproved.findReceipt(params["id"])
     end
-    # get show (show online receipt-img of id)
-    def onlineShow
-        render json: Unapproved.findOnline(params["id"])
-    end
-    # # get show (show cash receipt-img of id)
-    def cashShow
-        render json: Unapproved.findCash(params["id"])
-    end
+    
 
 
 end

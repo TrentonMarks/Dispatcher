@@ -115,8 +115,8 @@ class Unapproved
         end
     end
 
-    # show/get - Unapproved CC Receipt by ID
-    def self.findCreditCard id
+    # show/get - Unapproved Receipt by ID
+    def self.findReceipt id
         results = DB.exec(
             <<-SQL
                 SELECT *
@@ -124,26 +124,29 @@ class Unapproved
                 WHERE orders.id = #{id}
             SQL
         )
+        result = results.first
+        if result ["id"]
+            receipt = Unapproved.new({
+                    "id" => result["id"],
+                    "driver_id" => result["driver_id"],
+                    "restaurant_id" => result["restaurant_id"],
+                    "order_time" => result["order_time"],
+                    "customer_address" => result["customer_address"],
+                    "order_subtotal" => result["order_subtotal"],
+                    "payment_type" => result["payment_type"],
+                    "tip_type" => result["tip_type"],
+                    "dropoff_time" => result["dropoff_time"],
+                    "receipt_image" => result["receipt_image"],
+                    "submitted_tip" => result["submitted_tip"],
+                    "receipt_approved" => result["receipt_approved"],
+                    "retake_receipt" => result["retake_receipt"],
+                    "no_tip" => result["no_tip"],
+                    "cash_tip" => result["cash_tip"]
+                }
+            )
+            return receipt
+        end
     end
-    # show/get - Unapproved CC Receipt by ID
-    def self.findOnline id
-        results = DB.exec(
-            <<-SQL
-                SELECT *
-                FROM orders
-                WHERE orders.id = #{id}
-            SQL
-        )
-    end
-    # show/get - Unapproved CC Receipt by ID
-    def self.findCash id
-        results = DB.exec(
-            <<-SQL
-                SELECT *
-                FROM orders
-                WHERE orders.id = #{id}
-            SQL
-        )
-    end
+
 
 end

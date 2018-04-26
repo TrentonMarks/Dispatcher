@@ -1,17 +1,22 @@
 Rails.application.routes.draw do
 
-  get '/receipts/unapproved/creditcard', to: 'unapproved#creditCardIndex'
-  get '/receipts/unapproved/online', to: 'unapproved#onlineIndex'
-  get '/receipts/unapproved/cash', to: 'unapproved#cashIndex'
+    # INDEX Unapproved Receipts
+    # credit card receipts
+    get '/receipts/unapproved/creditcard', to: 'unapproved#creditCardIndex'
+    # online receipts
+    get '/receipts/unapproved/online', to: 'unapproved#onlineIndex'
+    # cash receipts
+    get '/receipts/unapproved/cash', to: 'unapproved#cashIndex'
 
-  get '/receipts/unapproved/creditcard/:id', to: 'unapproved#creditCardShow'
-  get '/receipts/unapproved/online/:id', to: 'unapproved#onlineShow'
-  get '/receipts/unapproved/cash/:id', to: 'unapproved#cashShow'
+    # SHOW Unapproved Receipt
+    get '/receipts/unapproved/:id', to: 'unapproved#receiptShow'
 
 
 
 
-  # put '/receipts/unapproved/creditcard/:id', to: 'unapproved#'
+    # put '/receipts/unapproved/:id/retake', to: 'unapproved#creditCardRetake'
+    # put '/receipts/unapproved/:id/approved', to: 'unapprovedcreditCardApproved#'
+
 
 
 
