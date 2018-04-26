@@ -56,7 +56,6 @@ class Unapproved
             end
         end
     end
-
     # index/get - Unapproved Online Receipts
     def self.allOnline
         results = DB.exec(
@@ -86,7 +85,6 @@ class Unapproved
             end
         end
     end
-
     # index/get - Unapproved Cash Receipts
     def self.allCash
         results = DB.exec(
@@ -115,6 +113,37 @@ class Unapproved
                         })
             end
         end
+    end
+
+    # show/get - Unapproved CC Receipt by ID
+    def self.findCreditCard id
+        results = DB.exec(
+            <<-SQL
+                SELECT *
+                FROM orders
+                WHERE orders.id = #{id}
+            SQL
+        )
+    end
+    # show/get - Unapproved CC Receipt by ID
+    def self.findOnline id
+        results = DB.exec(
+            <<-SQL
+                SELECT *
+                FROM orders
+                WHERE orders.id = #{id}
+            SQL
+        )
+    end
+    # show/get - Unapproved CC Receipt by ID
+    def self.findCash id
+        results = DB.exec(
+            <<-SQL
+                SELECT *
+                FROM orders
+                WHERE orders.id = #{id}
+            SQL
+        )
     end
 
 end
