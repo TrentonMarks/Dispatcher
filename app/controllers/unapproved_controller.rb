@@ -6,4 +6,8 @@ class UnapprovedController < ApplicationController
         render json: Unapproved.all
     end
 
+    def create
+      render json: Unapproved.create(params["unapproved"])
+    end
+
 end
