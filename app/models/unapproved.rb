@@ -88,7 +88,7 @@ class Unapproved
     end
 
     # index/get - Unapproved Cash Receipts
-    def self.allOnline
+    def self.allCash
         results = DB.exec(
             <<-SQL
                 SELECT * FROM orders;
@@ -113,10 +113,8 @@ class Unapproved
                             "no_tip" => result["no_tip"],
                             "cash_tip" => result["cash_tip"]
                         })
+            end
         end
+    end
 
 end
-
-
-
-# INSERT INTO orders (driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip) VALUES (1,1,'2018-04-25 10:13:11','8855 E Nebraska Pl, Denver, CO',45,'online','online','2018-04-25 10:50:10',NULL,5,NULL,NULL,NULL,NULL);
