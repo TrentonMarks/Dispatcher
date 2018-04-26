@@ -1,13 +1,19 @@
 class UnapprovedController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    #get index (all)
-    def index
-        render json: Unapproved.all
+    #get index (all unapproved CC-receipts)
+    def creditCardIndex
+        render json: Unapproved.allCreditCard
     end
 
-    def create
-      render json: Unapproved.create(params["unapproved"])
+    #get index (all unapproved online-receipts)
+    def onlineIndex
+        render json: Unapproved.allOnline
+    end
+
+    #get index (all unapproved cash-receipts)
+    def cashIndex
+        render json: Unapproved.allCash
     end
 
 end
