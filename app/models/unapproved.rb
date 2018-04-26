@@ -1,4 +1,4 @@
-class Driver
+class Unapproved
     # ==================================================
     #                      SET UP
     # ==================================================
@@ -24,7 +24,7 @@ class Driver
                 SELECT * FROM drivers;
             SQL
         )
-        return results.map { |result| Driver.new(result) }
+        return results.map { |result| Unapproved.new(result) }
     end
 
 end

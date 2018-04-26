@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get '/drivers', to: 'drivers#index'
+  get '/approve_receipts/unapproved', to: 'unapproved#index'
 end

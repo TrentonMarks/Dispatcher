@@ -1,9 +1,9 @@
-class DriversController < ApplicationController
+class UnapprovedController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     #get index (all)
     def index
-        render json: Driver.all
+        render json: Unapproved.all
     end
 
 end
