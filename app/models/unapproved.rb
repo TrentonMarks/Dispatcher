@@ -240,20 +240,25 @@ class Unapproved
     end
 
     # update/put - Approved Unapproved Receipt by ID
-    # def self.approveReceipt id, opts
-        # results = DB.exec(
-        #     <<-SQL
-        #         UPDATE orders
-        #         SET receipt_approved = #{receipt_approved}
-        #         WHERE id=#{id}
-        #         RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
-        #     SQL
-        # )
-        # return Approved.new results.first
-    # end
+    def self.approveReceipt id, opts
+        results = DB.exec(
+            <<-SQL
+                UPDATE orders
+                SET receipt_approved = #{opts["receipt_approved"]}
+                WHERE id = #{id}
+                RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
+            SQL
+        )
+        return Approved.new results.first
+    end
+
+
+
+
     # update/put - Retake Unapproved Receipt by ID
-    # def self.retakeReceipt id, opts
-    # end
+    def self.retakeReceipt id, opts
+
+    end
 
 
 

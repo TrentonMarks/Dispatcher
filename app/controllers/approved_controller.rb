@@ -20,5 +20,10 @@ class ApprovedController < ApplicationController
     def receiptShow
         render json: Approved.findReceipt(params["id"])
     end
+    # PUT/UPDATE
+    # receipt_unapproved gains a timestamp value
+    # def receiptUnapproved
+    #     render json: Approved.unapproveReceipt(params["id"], params["order"])
+    # end
 
 end
