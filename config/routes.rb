@@ -7,15 +7,17 @@ Rails.application.routes.draw do
     get '/receipts/unapproved/online', to: 'unapproved#onlineIndex'
     # cash receipts
     get '/receipts/unapproved/cash', to: 'unapproved#cashIndex'
+    get '/receipts/unapproved/retake', to: 'unapproved#retakeIndex'
+
 
     # SHOW Unapproved Receipt
     get '/receipts/unapproved/:id', to: 'unapproved#receiptShow'
 
-
-
-
-    # put '/receipts/unapproved/:id/retake', to: 'unapproved#creditCardRetake'
-    # put '/receipts/unapproved/:id/approved', to: 'unapprovedcreditCardApproved#'
+    # UPDATE Unapproved Receipt
+    # retake receipt image
+    # put '/receipts/unapproved/:id/retake', to: 'unapproved#receiptRetake'
+    # approve receipt image
+    put '/receipts/unapproved/:id/approved', to: 'unapproved#receiptApproved'
 
 
 

@@ -114,6 +114,35 @@ class Unapproved
             end
         end
     end
+    # index/get - Unapproved Receipts Assigned for a Retake
+    def self.allRetakes
+        results = DB.exec(
+            <<-SQL
+                SELECT * FROM orders;
+            SQL
+        )
+        return results.map do |result|
+            if result["retake_receipt"]
+                    Unapproved.new({
+                            "id" => result["id"],
+                            "driver_id" => result["driver_id"],
+                            "restaurant_id" => result["restaurant_id"],
+                            "order_time" => result["order_time"],
+                            "customer_address" => result["customer_address"],
+                            "order_subtotal" => result["order_subtotal"],
+                            "payment_type" => result["payment_type"],
+                            "tip_type" => result["tip_type"],
+                            "dropoff_time" => result["dropoff_time"],
+                            "receipt_image" => result["receipt_image"],
+                            "submitted_tip" => result["submitted_tip"],
+                            "receipt_approved" => result["receipt_approved"],
+                            "retake_receipt" => result["retake_receipt"],
+                            "no_tip" => result["no_tip"],
+                            "cash_tip" => result["cash_tip"]
+                        })
+            end
+        end
+    end
 
     # show/get - Unapproved Receipt by ID
     def self.findReceipt id
@@ -126,7 +155,7 @@ class Unapproved
         )
         result = results.first
         if result ["id"]
-            receipt = Unapproved.new({
+            order = Unapproved.new({
                     "id" => result["id"],
                     "driver_id" => result["driver_id"],
                     "restaurant_id" => result["restaurant_id"],
@@ -144,9 +173,33 @@ class Unapproved
                     "cash_tip" => result["cash_tip"]
                 }
             )
-            return receipt
+            return order
         end
     end
 
+    def self.approveReceipt id, opts
+        results = DB.exec(
+            <<-SQL
+                UPDATE orders
+                SET
+                    driver_id='#{opts["driver_id"]}',
+                    restaurant_id='#{opts["restaurant_id"]}',
+                    order_time='#{opts["order_time"]}',
+                    customer_address='#{opts["customer_address"]}',
+                    order_subtotal='#{opts["order_subtotal"]}',
+                    payment_type='#{opts["payment_type"]}',
+                    tip_type='#{opts["tip_type"]}',
+                    dropoff_time='#{opts["dropoff_time"]}',
+                    receipt_image='#{opts["receipt_image"]}',
+                    submitted_tip='#{opts["submitted_tip"]}',
+                    receipt_approved=#{opts["receipt_approved"]},
+                    retake_receipt='#{opts["retake_receipt"]}',
+                    no_tip='#{opts["no_tip"]}',
+                    cash_tip='#{opts["cash_tip"]}'
+                WHERE id=#{id}
+                RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
+            SQL
+        )
+    end
 
 end

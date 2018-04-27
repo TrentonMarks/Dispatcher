@@ -14,13 +14,19 @@ class UnapprovedController < ApplicationController
     def cashIndex
         render json: Unapproved.allCash
     end
+    # get index (all unapproved retake-receipts)
+    def retakeIndex
+        render json: Unapproved.allRetakes
+    end
 
     # GET/SHOW
     #get show (show credit receipt-img of id)
     def receiptShow
         render json: Unapproved.findReceipt(params["id"])
     end
-    
 
+    def receiptApproved
+        render json: Unapproved.approveReceipt(params["id"], params["order"])
+    end
 
 end
