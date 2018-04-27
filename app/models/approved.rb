@@ -1,4 +1,4 @@
-class Unapproved
+class Approved
 
     # attribute readers for instance access
     # attr_reader :id, :driver_id, :restaurant_id, :order_time, :customer_address, :order_subtotal, :payment_type, :tip_type, :dropoff_time, :receipt_image, :submitted_tip, :receipt_approved, :retake_receipt, :no_tip, :cash_tip
@@ -25,9 +25,8 @@ class Unapproved
         @cash_tip = opts["cash_tip"]
     end
 
-
     # ROUTES
-    # index/get - Unapproved CC Receipts
+    # index/get - Approved CC Receipts
     def self.allCreditCard
         results = DB.exec(
             <<-SQL
@@ -35,8 +34,8 @@ class Unapproved
             SQL
         )
         return results.map do |result|
-            if result["receipt_image"] && result["receipt_approved"] === nil && result["retake_receipt"] ===nil && result["payment_type"] === "credit"
-                    Unapproved.new({
+            if result["receipt_approved"] && result["payment_type"] === "credit"
+                    Approved.new({
                             "id" => result["id"],
                             "driver_id" => result["driver_id"],
                             "restaurant_id" => result["restaurant_id"],
@@ -56,7 +55,7 @@ class Unapproved
             end
         end
     end
-    # index/get - Unapproved Online Receipts
+    # index/get - Approved Online Receipts
     def self.allOnline
         results = DB.exec(
             <<-SQL
@@ -64,8 +63,8 @@ class Unapproved
             SQL
         )
         return results.map do |result|
-            if result["receipt_image"] && result["receipt_approved"] === nil && result["retake_receipt"] ===nil && result["payment_type"] === "online"
-                    Unapproved.new({
+            if result["receipt_approved"] && result["payment_type"] === "online"
+                    Approved.new({
                             "id" => result["id"],
                             "driver_id" => result["driver_id"],
                             "restaurant_id" => result["restaurant_id"],
@@ -85,7 +84,7 @@ class Unapproved
             end
         end
     end
-    # index/get - Unapproved Cash Receipts
+    # index/get - Approved Cash Receipts
     def self.allCash
         results = DB.exec(
             <<-SQL
@@ -93,37 +92,8 @@ class Unapproved
             SQL
         )
         return results.map do |result|
-            if result["receipt_image"] && result["receipt_approved"] === nil && result["retake_receipt"] ===nil && result["payment_type"] === "cash"
-                    Unapproved.new({
-                            "id" => result["id"],
-                            "driver_id" => result["driver_id"],
-                            "restaurant_id" => result["restaurant_id"],
-                            "order_time" => result["order_time"],
-                            "customer_address" => result["customer_address"],
-                            "order_subtotal" => result["order_subtotal"],
-                            "payment_type" => result["payment_type"],
-                            "tip_type" => result["tip_type"],
-                            "dropoff_time" => result["dropoff_time"],
-                            "receipt_image" => result["receipt_image"],
-                            "submitted_tip" => result["submitted_tip"],
-                            "receipt_approved" => result["receipt_approved"],
-                            "retake_receipt" => result["retake_receipt"],
-                            "no_tip" => result["no_tip"],
-                            "cash_tip" => result["cash_tip"]
-                        })
-            end
-        end
-    end
-    # index/get - Unapproved Receipts Assigned for a Retake
-    def self.allRetakes
-        results = DB.exec(
-            <<-SQL
-                SELECT * FROM orders;
-            SQL
-        )
-        return results.map do |result|
-            if result["retake_receipt"]
-                    Unapproved.new({
+            if result["receipt_approved"] && result["payment_type"] === "cash"
+                    Approved.new({
                             "id" => result["id"],
                             "driver_id" => result["driver_id"],
                             "restaurant_id" => result["restaurant_id"],
@@ -176,51 +146,4 @@ class Unapproved
             return order
         end
     end
-
-    # update/put - Approved Unapproved Receipt by ID
-    # def self.approveReceipt id, opts
-        # results = DB.exec(
-        #     <<-SQL
-        #         UPDATE orders
-        #         SET receipt_approved = #{receipt_approved}
-        #         WHERE id=#{id}
-        #         RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
-        #     SQL
-        # )
-        # return Approved.new results.first
-    # end
-    # update/put - Retake Unapproved Receipt by ID
-    # def self.retakeReceipt id, opts
-    # end
-
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# driver_id='#{opts["driver_id"]}',
-# restaurant_id='#{opts["restaurant_id"]}',
-# order_time='#{opts["order_time"]}',
-# customer_address='#{opts["customer_address"]}',
-# order_subtotal='#{opts["order_subtotal"]}',
-# payment_type='#{opts["payment_type"]}',
-# tip_type='#{opts["tip_type"]}',
-# dropoff_time='#{opts["dropoff_time"]}',
-# receipt_image='#{opts["receipt_image"]}',
-# submitted_tip='#{opts["submitted_tip"]}',
-# receipt_approved=#{opts["receipt_approved"]},
-# retake_receipt='#{opts["retake_receipt"]}',
-# no_tip='#{opts["no_tip"]}',
-# cash_tip='#{opts["cash_tip"]}'
