@@ -15,75 +15,6 @@ class PrimaryNav extends React.Component{
                 </div>
     }
 }
-// Data Tables for Unapproved CC, Online, Cash, and Retake Receipts
-class DataTable extends React.Component{
-    render(){
-        return  <table>
-                    <tbody>
-
-                        {this.props.state.showingCredit ?
-                            this.props.state.allCredit.map((creditcard, index)=>{
-                                return  <div>
-                                            <h3>Found: Unapproved Credit Receipt</h3>
-                                            <tr>
-                                                <td>
-                                                    <p>Order #: <em>{creditcard.id}</em></p>
-                                                    <p>Restaurant: <em>{creditcard.name}</em></p>
-                                                    <p>Ordered At: <em>{creditcard.order_time}</em></p>
-                                                    <p>Subtotal: <em>{creditcard.order_subtotal}</em></p>
-                                                    <p>Tip: <em>{creditcard.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{creditcard.first_name}{creditcard.last_name}</em></p>
-                                                    <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
-                        {
-                            this.props.state.showingOnline ?
-                            this.props.state.allOnline.map((online, index)=>{
-                                return  <div>
-                                            <h3>Found: Unapproved Credit Receipt</h3>
-                                            <tr>
-                                                <td>
-                                                    <p>Order #: <em>{online.id}</em></p>
-                                                    <p>Restaurant: <em>{online.name}</em></p>
-                                                    <p>Ordered At: <em>{online.order_time}</em></p>
-                                                    <p>Subtotal: <em>{online.order_subtotal}</em></p>
-                                                    <p>Tip: <em>{online.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{online.first_name}{online.last_name}</em></p>
-                                                    <p>Receipt Image: <em>{online.receipt_image}</em></p>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
-                        {
-                            this.props.state.showingCash ?
-                            this.props.state.allCash.map((cash, index)=>{
-                                return  <div>
-                                            <tr>
-                                                <td>
-                                                    <p>Order #: <em>{cash.id}</em></p>
-                                                    <p>Restaurant: <em>{cash.name}</em></p>
-                                                    <p>Ordered At: <em>{cash.order_time}</em></p>
-                                                    <p>Subtotal: <em>{cash.order_subtotal}</em></p>
-                                                    <p>Tip: <em>{cash.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{cash.first_name}{cash.last_name}</em></p>
-                                                    <p>Receipt Image: <em>{cash.receipt_image}</em></p>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
-                        {
-                            this.props.state.showingRetake ?
-                            <h3>DataTable: Unapproved Retake Receipts</h3> : ''
-                        }
-                    </tbody>
-                </table>
-    }
-}
 // Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
 class UnappNav extends React.Component{
     constructor(props){
@@ -121,6 +52,9 @@ class UnappNav extends React.Component{
     }
     handleSubmit(event){
         event.preventDefault();
+        {this.state.showingCredit ? this.getAllCredit() : ''}
+        {this.state.showingOnline ? this.getAllOnline() : ''}
+        {this.state.showingCash ? this.getAllCash() : ''}
     }
     getCreditCard(creditcard){
         this.setState({creditcard: creditcard})
@@ -179,6 +113,76 @@ class UnappNav extends React.Component{
                     <DataTable state={this.state} />
 
                 </div>
+    }
+}
+// Data Tables for Unapproved CC, Online, Cash, and Retake Receipts
+class DataTable extends React.Component{
+    render(){
+        return  <table>
+                    <tbody>
+
+                        {this.props.state.showingCredit ?
+                            this.props.state.allCredit.map((creditcard, index)=>{
+                                return  <div>
+                                            <h3>CREDIT: Unapproved Receipts</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{creditcard.id}</em></p>
+                                                    <p>Restaurant: <em>{creditcard.name}</em></p>
+                                                    <p>Ordered At: <em>{creditcard.order_time}</em></p>
+                                                    <p>Subtotal: <em>{creditcard.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{creditcard.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{creditcard.first_name}{creditcard.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {
+                            this.props.state.showingOnline ?
+                            this.props.state.allOnline.map((online, index)=>{
+                                return  <div>
+                                            <h3>ONLINE: Unapproved Receipts</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{online.id}</em></p>
+                                                    <p>Restaurant: <em>{online.name}</em></p>
+                                                    <p>Ordered At: <em>{online.order_time}</em></p>
+                                                    <p>Subtotal: <em>{online.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{online.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{online.first_name}{online.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{online.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {
+                            this.props.state.showingCash ?
+                            this.props.state.allCash.map((cash, index)=>{
+                                return  <div>
+                                            <h3>CASH: Unapproved Receipts</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{cash.id}</em></p>
+                                                    <p>Restaurant: <em>{cash.name}</em></p>
+                                                    <p>Ordered At: <em>{cash.order_time}</em></p>
+                                                    <p>Subtotal: <em>{cash.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{cash.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{cash.first_name}{cash.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{cash.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {
+                            this.props.state.showingRetake ?
+                            <h3>DataTable: Unapproved Retake Receipts</h3> : ''
+                        }
+                    </tbody>
+                </table>
     }
 }
 // Unapproved Credit Card Receipts
