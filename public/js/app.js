@@ -6,7 +6,6 @@ class Header extends React.Component{
                 </div>
     }
 }
-
 // Approved/Unapproved Nav Bar
 class PrimaryNav extends React.Component{
     render(){
@@ -16,43 +15,74 @@ class PrimaryNav extends React.Component{
                 </div>
     }
 }
-
-// Credit Card, Online, Cash, and Retake Data-Display Tables
+// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
 class DataTable extends React.Component{
     render(){
-        return  <div>
-                    {
-                        this.props.state.showingCredit ?
-                        <h3>DataTable: Unapproved Credit Card Receipts</h3> : ''
-                    }
-                    {
-                        this.props.state.showingOnline ?
-                        <h3>DataTable: Unapproved Online Receipts</h3> : ''
-                    }
-                    {
-                        this.props.state.showingCash ?
-                        <h3>DataTable: Unapproved Cash Receipts</h3> : ''
-                    }
-                    {
-                        this.props.state.showingRetake ?
-                        <h3>DataTable: Unapproved Retake Receipts</h3> : ''
-                    }
-                </div>
+        return  <table>
+                    <tbody>
+
+                        {this.props.state.showingCredit ?
+                            this.props.state.allCredit.map((creditcard, index)=>{
+                                return <tr>
+                                            <td>
+                                                <p>{creditcard.name}</p>
+                                            </td>
+                                        </tr>
+                            }) : ''
+                        }
+                        {
+                            this.props.state.showingOnline ?
+                            this.props.state.allOnline.map((online, index)=>{
+                                return <tr>
+                                            <td>
+                                                <p>{online.name}</p>
+                                            </td>
+                                        </tr>
+                            }) : ''
+                        }
+                        {
+                            this.props.state.showingCash ?
+                            this.props.state.allCash.map((cash, index)=>{
+                                return <tr>
+                                            <td>
+                                                <p>{cash.name}</p>
+                                            </td>
+                                        </tr>
+                            }) : ''
+                        }
+                        {
+                            this.props.state.showingRetake ?
+                            <h3>DataTable: Unapproved Retake Receipts</h3> : ''
+                        }
+                    </tbody>
+                </table>
     }
 }
-
-// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
 class UnappNav extends React.Component{
     constructor(props){
         super(props)
         this.changeState = this.changeState.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        // this.getCreditCard = this.getCreditCard.bind(this)
+        // this.getOnline = this.getOnline.bind(this)
+        this.getCash = this.getCash.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
             showingCash: false,
-            showingRetake: false
+            showingRetake: false,
+            allCredit: [],
+            allOnline: [],
+            allCash: [],
+            creditcard: {},
+            online: {},
+            cash: {}
         }
+    }
+    componentDidMount(){
+        // this.getAllCredit()
+        // this.getAllOnline()
+        this.getAllCash()
     }
     changeState(st1, st2, st3, st4){
         this.setState({
@@ -64,7 +94,46 @@ class UnappNav extends React.Component{
     }
     handleSubmit(event){
         event.preventDefault();
-        this.props.state = this.state;
+    }
+    getCreditCard(creditcard){
+        this.setState({creditcard: creditcard})
+    }
+    getOnline(online){
+        this.setState({online: online})
+    }
+    getCash(cash){
+        this.setState({cash: cash})
+    }
+
+    // getAllCredit(){
+    //     fetch('/receipts/unapproved/creditcard')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             this.setState({
+    //                 allCredit: data
+    //             })
+    //             console.log(this.state.allCredit)
+    //         }).catch(error => console.log(error))
+    // }
+    // getAllOnline(){
+    //     fetch('/receipts/unapproved/online')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             this.setState({
+    //                 allOnline: data
+    //             })
+    //             console.log(this.state.allOnline)
+    //         }).catch(error => console.log(error))
+    // }
+    getAllCash(){
+        fetch('/receipts/unapproved/cash')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allCash: data
+                })
+                console.log(this.state.allCash)
+            }).catch(error => console.log(error))
     }
     render(){
         return  <div>
@@ -86,7 +155,6 @@ class UnappNav extends React.Component{
                 </div>
     }
 }
-
 // Unapproved Credit Card Receipts
 class Unapproved extends React.Component{
     render(){
