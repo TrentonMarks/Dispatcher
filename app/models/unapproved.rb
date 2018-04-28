@@ -44,8 +44,7 @@ class Unapproved
                     ON orders.driver_id = drivers.id
                 LEFT JOIN restaurants
                     ON orders.restaurant_id = restaurants.id
-                WHERE
-                    orders.receipt_image IS NOT NULL
+                WHERE orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
                     AND orders.payment_type = 'credit'
             SQL
@@ -207,9 +206,6 @@ class Unapproved
 
 
 end
-
-
-
 
 
 

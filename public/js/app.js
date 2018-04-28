@@ -15,7 +15,7 @@ class PrimaryNav extends React.Component{
                 </div>
     }
 }
-// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
+// Data Tables for Unapproved CC, Online, Cash, and Retake Receipts
 class DataTable extends React.Component{
     render(){
         return  <table>
@@ -58,14 +58,15 @@ class DataTable extends React.Component{
                 </table>
     }
 }
+// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
 class UnappNav extends React.Component{
     constructor(props){
         super(props)
         this.changeState = this.changeState.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         // this.getCreditCard = this.getCreditCard.bind(this)
-        // this.getOnline = this.getOnline.bind(this)
-        this.getCash = this.getCash.bind(this)
+        this.getOnline = this.getOnline.bind(this)
+        // this.getCash = this.getCash.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -81,8 +82,8 @@ class UnappNav extends React.Component{
     }
     componentDidMount(){
         // this.getAllCredit()
-        // this.getAllOnline()
-        this.getAllCash()
+        this.getAllOnline()
+        // this.getAllCash()
     }
     changeState(st1, st2, st3, st4){
         this.setState({
@@ -104,27 +105,26 @@ class UnappNav extends React.Component{
     getCash(cash){
         this.setState({cash: cash})
     }
-
-    // getAllCredit(){
-    //     fetch('/receipts/unapproved/creditcard')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 allCredit: data
-    //             })
-    //             console.log(this.state.allCredit)
-    //         }).catch(error => console.log(error))
-    // }
-    // getAllOnline(){
-    //     fetch('/receipts/unapproved/online')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 allOnline: data
-    //             })
-    //             console.log(this.state.allOnline)
-    //         }).catch(error => console.log(error))
-    // }
+    getAllCredit(){
+        fetch('/receipts/unapproved/credit')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allCredit: data
+                })
+                console.log(this.state.allCredit)
+            }).catch(error => console.log(error))
+    }
+    getAllOnline(){
+        fetch('/receipts/unapproved/online')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allOnline: data
+                })
+                console.log(this.state.allOnline);
+            }).catch(error => console.log(error))
+    }
     getAllCash(){
         fetch('/receipts/unapproved/cash')
             .then(response => response.json())
