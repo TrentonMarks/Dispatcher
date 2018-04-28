@@ -23,6 +23,12 @@ class UnappNav extends React.Component{
         super(props)
         this.changeState = this.changeState.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.state = {
+            showingCredit: '',
+            showingOnline: '',
+            showingCash: '',
+            showingRetake: ''
+        }
     }
     changeState(st1, st2, st3, st4){
         this.setState({
@@ -31,11 +37,12 @@ class UnappNav extends React.Component{
             [st3]: false,
             [st4]: false
         })
-        console.log(this.state);
     }
     handleSubmit(event){
         event.preventDefault();
+        this.props.state = this.state;
         console.log(this.state);
+        console.log(this.props.state);
     }
     render(){
         return  <div>
