@@ -19,12 +19,35 @@ class PrimaryNav extends React.Component{
 
 // Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
 class UnappNav extends React.Component{
+    constructor(props){
+        super(props)
+        this.changeState = this.changeState.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+    changeState(st1, st2, st3, st4){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false,
+            [st4]: false
+        })
+        console.log(this.state);
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        console.log(this.state);
+    }
     render(){
         return  <div>
-                    <button>Credit Card</button>
-                    <button>Online</button>
-                    <button>Cash</button>
-                    <button>Retake</button>
+                    <form onSubmit={this.handleSubmit}>
+                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>Credit Card</button>
+
+                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake')}>Online</button>
+
+                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake')}>Cash</button>
+
+                        <button onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash')}>Retake</button>
+                    </form>
                 </div>
     }
 }
@@ -58,17 +81,17 @@ class Unapproved extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            showingCredit: false,
+            showingCredit: true,
             showingOnline: false,
             showingCash: false,
-            showingRetake: true
+            showingRetake: false
         }
     }
     render(){
         return  <div>
                     <Header />
                     <PrimaryNav />
-                    <UnappNav />
+                    <UnappNav state={this.state} />
                     <DataTable state={this.state} />
                 </div>
     }
@@ -79,24 +102,3 @@ ReactDOM.render(
     <Unapproved />,
     document.querySelector('.container')
 )
-
-
-
-/*
-{
-    this.state.showingCredit ?
-    <DataTable /> : ''
-}
-{
-    this.state.showingOnline ?
-    <h3>Showing Unapproved Online Receipts</h3> : ''
-}
-{
-    this.state.showingCash ?
-    <h3>Showing Unapproved Cash Receipts</h3> : ''
-}
-{
-    this.state.showingRetake ?
-    <h3>Showing Unapproved Retake Receipts</h3> : ''
-}
-*/
