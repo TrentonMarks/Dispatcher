@@ -1,4 +1,4 @@
-// Header
+// Header Bar
 class Header extends React.Component{
     render(){
         return  <div>
@@ -17,49 +17,7 @@ class PrimaryNav extends React.Component{
     }
 }
 
-// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
-class UnappNav extends React.Component{
-    constructor(props){
-        super(props)
-        this.changeState = this.changeState.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.state = {
-            showingCredit: '',
-            showingOnline: '',
-            showingCash: '',
-            showingRetake: ''
-        }
-    }
-    changeState(st1, st2, st3, st4){
-        this.setState({
-            [st1]: true,
-            [st2]: false,
-            [st3]: false,
-            [st4]: false
-        })
-    }
-    handleSubmit(event){
-        event.preventDefault();
-        this.props.state = this.state;
-        console.log(this.state);
-        console.log(this.props.state);
-    }
-    render(){
-        return  <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>Credit Card</button>
-
-                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake')}>Online</button>
-
-                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake')}>Cash</button>
-
-                        <button onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash')}>Retake</button>
-                    </form>
-                </div>
-    }
-}
-
-// Credit Card, Online, Cash, and Retake Data Display-Tables
+// Credit Card, Online, Cash, and Retake Data-Display Tables
 class DataTable extends React.Component{
     render(){
         return  <div>
@@ -83,10 +41,12 @@ class DataTable extends React.Component{
     }
 }
 
-// Unapproved Credit Card Receipts
-class Unapproved extends React.Component{
+// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
+class UnappNav extends React.Component{
     constructor(props){
         super(props)
+        this.changeState = this.changeState.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -94,12 +54,46 @@ class Unapproved extends React.Component{
             showingRetake: false
         }
     }
+    changeState(st1, st2, st3, st4){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false,
+            [st4]: false
+        })
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        this.props.state = this.state;
+    }
+    render(){
+        return  <div>
+
+                    <form onSubmit={this.handleSubmit}>
+
+                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>Credit Card</button>
+
+                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake')}>Online</button>
+
+                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake')}>Cash</button>
+
+                        <button onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash')}>Retake</button>
+
+                    </form>
+
+                    <DataTable state={this.state} />
+
+                </div>
+    }
+}
+
+// Unapproved Credit Card Receipts
+class Unapproved extends React.Component{
     render(){
         return  <div>
                     <Header />
                     <PrimaryNav />
-                    <UnappNav state={this.state} />
-                    <DataTable state={this.state} />
+                    <UnappNav />
                 </div>
     }
 }
