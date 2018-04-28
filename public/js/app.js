@@ -23,31 +23,57 @@ class DataTable extends React.Component{
 
                         {this.props.state.showingCredit ?
                             this.props.state.allCredit.map((creditcard, index)=>{
-                                return <tr>
-                                            <td>
-                                                <p>{creditcard.name}</p>
-                                            </td>
-                                        </tr>
+                                return  <div>
+                                            <h3>Found: Unapproved Credit Receipt</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{creditcard.id}</em></p>
+                                                    <p>Restaurant: <em>{creditcard.name}</em></p>
+                                                    <p>Ordered At: <em>{creditcard.order_time}</em></p>
+                                                    <p>Subtotal: <em>{creditcard.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{creditcard.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{creditcard.first_name}{creditcard.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
                             }) : ''
                         }
                         {
                             this.props.state.showingOnline ?
                             this.props.state.allOnline.map((online, index)=>{
-                                return <tr>
-                                            <td>
-                                                <p>{online.name}</p>
-                                            </td>
-                                        </tr>
+                                return  <div>
+                                            <h3>Found: Unapproved Credit Receipt</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{online.id}</em></p>
+                                                    <p>Restaurant: <em>{online.name}</em></p>
+                                                    <p>Ordered At: <em>{online.order_time}</em></p>
+                                                    <p>Subtotal: <em>{online.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{online.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{online.first_name}{online.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{online.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
                             }) : ''
                         }
                         {
                             this.props.state.showingCash ?
                             this.props.state.allCash.map((cash, index)=>{
-                                return <tr>
-                                            <td>
-                                                <p>{cash.name}</p>
-                                            </td>
-                                        </tr>
+                                return  <div>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{cash.id}</em></p>
+                                                    <p>Restaurant: <em>{cash.name}</em></p>
+                                                    <p>Ordered At: <em>{cash.order_time}</em></p>
+                                                    <p>Subtotal: <em>{cash.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{cash.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{cash.first_name}{cash.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{cash.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
                             }) : ''
                         }
                         {
@@ -64,9 +90,9 @@ class UnappNav extends React.Component{
         super(props)
         this.changeState = this.changeState.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        // this.getCreditCard = this.getCreditCard.bind(this)
+        this.getCreditCard = this.getCreditCard.bind(this)
         this.getOnline = this.getOnline.bind(this)
-        // this.getCash = this.getCash.bind(this)
+        this.getCash = this.getCash.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -81,8 +107,8 @@ class UnappNav extends React.Component{
         }
     }
     componentDidMount(){
-        // this.getAllCredit()
-        this.getAllOnline()
+        this.getAllCredit()
+        // this.getAllOnline()
         // this.getAllCash()
     }
     changeState(st1, st2, st3, st4){
@@ -106,7 +132,7 @@ class UnappNav extends React.Component{
         this.setState({cash: cash})
     }
     getAllCredit(){
-        fetch('/receipts/unapproved/credit')
+        fetch('/receipts/unapproved/creditcard')
             .then(response => response.json())
             .then(data => {
                 this.setState({
