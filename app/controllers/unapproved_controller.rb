@@ -16,7 +16,7 @@ class UnapprovedController < ApplicationController
     end
     # all unapproved retake-receipts
     def retakeIndex
-        render json: Unapproved.allRetakes
+        render json: Unapproved.allRetake
     end
 
     # GET/SHOW

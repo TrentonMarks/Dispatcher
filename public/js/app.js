@@ -24,6 +24,7 @@ class UnappNav extends React.Component{
         this.getCreditCard = this.getCreditCard.bind(this)
         this.getOnline = this.getOnline.bind(this)
         this.getCash = this.getCash.bind(this)
+        this.getRetake = this.getRetake.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -32,15 +33,15 @@ class UnappNav extends React.Component{
             allCredit: [],
             allOnline: [],
             allCash: [],
+            allRetake: [],
             creditcard: {},
             online: {},
-            cash: {}
+            cash: {},
+            retake: {}
         }
     }
     componentDidMount(){
         this.getAllCredit()
-        // this.getAllOnline()
-        // this.getAllCash()
     }
     changeState(st1, st2, st3, st4){
         this.setState({
@@ -55,6 +56,7 @@ class UnappNav extends React.Component{
         {this.state.showingCredit ? this.getAllCredit() : ''}
         {this.state.showingOnline ? this.getAllOnline() : ''}
         {this.state.showingCash ? this.getAllCash() : ''}
+        {this.state.showingRetake ? this.getAllRetake() : ''}
     }
     getCreditCard(creditcard){
         this.setState({creditcard: creditcard})
@@ -64,6 +66,9 @@ class UnappNav extends React.Component{
     }
     getCash(cash){
         this.setState({cash: cash})
+    }
+    getRetake(retake){
+        this.setState({retake: retake})
     }
     getAllCredit(){
         fetch('/receipts/unapproved/creditcard')
@@ -95,6 +100,16 @@ class UnappNav extends React.Component{
                 console.log(this.state.allCash)
             }).catch(error => console.log(error))
     }
+    getAllRetake(){
+        fetch('/receipts/unapproved/retake')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allRetake: data
+                })
+                console.log(this.state.allRetake)
+            }).catch(error => console.log(error))
+    }
     render(){
         return  <div>
 
@@ -124,7 +139,7 @@ class DataTable extends React.Component{
                         {this.props.state.showingCredit ?
                             this.props.state.allCredit.map((creditcard, index)=>{
                                 return  <div>
-                                            <h3>CREDIT: Unapproved Receipts</h3>
+                                            <h3>CREDIT</h3>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{creditcard.id}</em></p>
@@ -143,7 +158,7 @@ class DataTable extends React.Component{
                             this.props.state.showingOnline ?
                             this.props.state.allOnline.map((online, index)=>{
                                 return  <div>
-                                            <h3>ONLINE: Unapproved Receipts</h3>
+                                            <h3>ONLINE</h3>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{online.id}</em></p>
@@ -162,7 +177,7 @@ class DataTable extends React.Component{
                             this.props.state.showingCash ?
                             this.props.state.allCash.map((cash, index)=>{
                                 return  <div>
-                                            <h3>CASH: Unapproved Receipts</h3>
+                                            <h3>CASH</h3>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{cash.id}</em></p>
@@ -179,7 +194,22 @@ class DataTable extends React.Component{
                         }
                         {
                             this.props.state.showingRetake ?
-                            <h3>DataTable: Unapproved Retake Receipts</h3> : ''
+                            this.props.state.allRetake.map((retake, index)=>{
+                                return  <div>
+                                            <h3>RETAKE</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Order #: <em>{retake.id}</em></p>
+                                                    <p>Restaurant: <em>{retake.name}</em></p>
+                                                    <p>Ordered At: <em>{retake.order_time}</em></p>
+                                                    <p>Subtotal: <em>{retake.order_subtotal}</em></p>
+                                                    <p>Tip: <em>{retake.submitted_tip}</em></p>
+                                                    <p>Driver: <em>{retake.first_name}{retake.last_name}</em></p>
+                                                    <p>Receipt Image: <em>{retake.receipt_image}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
                         }
                     </tbody>
                 </table>
