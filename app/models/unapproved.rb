@@ -26,7 +26,7 @@ class Unapproved
     end
 
     # GET ROUTES
-    # Unapproved CC Receipts
+    # CC Receipts
     def self.allCreditCard
         results = DB.exec(
             <<-SQL
@@ -47,7 +47,7 @@ class Unapproved
         )
         return results
     end
-    # Unapproved Online Receipts
+    # Online Receipts
     def self.allOnline
         results = DB.exec(
             <<-SQL
@@ -68,7 +68,7 @@ class Unapproved
         )
         return results
     end
-    # Unapproved Cash Receipts
+    # Cash Receipts
     def self.allCash
         results = DB.exec(
             <<-SQL
@@ -89,8 +89,7 @@ class Unapproved
         )
         return results
     end
-
-    # index/get - Unapproved Receipts Assigned for a Retake
+    # Retake Receipts
     def self.allRetake
         results = DB.exec(
             <<-SQL
@@ -110,7 +109,8 @@ class Unapproved
         return results
     end
 
-    # show/get - Unapproved Receipt by ID
+    # SHOW ROUTES
+    # Unapproved by ID
     def self.findReceipt id
         results = DB.exec(
             <<-SQL
@@ -131,25 +131,23 @@ class Unapproved
         return result
     end
 
-    # update/put - Approved Unapproved Receipt by ID
-    def self.approveReceipt id, opts
-        results = DB.exec(
-            <<-SQL
-                UPDATE orders
-                SET receipt_approved = #{opts["receipt_approved"]}
-                WHERE id = #{id}
-                RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
-            SQL
-        )
-        return Approved.new results.first
-    end
-    # update/put - Retake Unapproved Receipt by ID
-    def self.retakeReceipt id, opts
-
-    end
-
-
-
+    # UPDATE ROUTES
+    # Approve Unapproved Receipt by ID
+    # def self.approveReceipt id, opts
+    #     results = DB.exec(
+    #         <<-SQL
+    #             UPDATE orders
+    #             SET receipt_approved = #{opts["receipt_approved"]}
+    #             WHERE id = #{id}
+    #             RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
+    #         SQL
+    #     )
+    #     return Approved.new results.first
+    # end
+    # Retake Unapproved Receipt by ID
+    # def self.retakeReceipt id, opts
+    #
+    # end
 
 end
 

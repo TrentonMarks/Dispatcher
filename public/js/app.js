@@ -147,8 +147,9 @@ class DataTable extends React.Component{
                                                     <p>Ordered At: <em>{creditcard.order_time}</em></p>
                                                     <p>Subtotal: <em>{creditcard.order_subtotal}</em></p>
                                                     <p>Tip: <em>{creditcard.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{creditcard.first_name}{creditcard.last_name}</em></p>
+                                                    <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
                                                     <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
+                                                    <button>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -166,8 +167,9 @@ class DataTable extends React.Component{
                                                     <p>Ordered At: <em>{online.order_time}</em></p>
                                                     <p>Subtotal: <em>{online.order_subtotal}</em></p>
                                                     <p>Tip: <em>{online.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{online.first_name}{online.last_name}</em></p>
+                                                    <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
                                                     <p>Receipt Image: <em>{online.receipt_image}</em></p>
+                                                    <button>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -185,8 +187,9 @@ class DataTable extends React.Component{
                                                     <p>Ordered At: <em>{cash.order_time}</em></p>
                                                     <p>Subtotal: <em>{cash.order_subtotal}</em></p>
                                                     <p>Tip: <em>{cash.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{cash.first_name}{cash.last_name}</em></p>
+                                                    <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
                                                     <p>Receipt Image: <em>{cash.receipt_image}</em></p>
+                                                    <button>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -204,8 +207,9 @@ class DataTable extends React.Component{
                                                     <p>Ordered At: <em>{retake.order_time}</em></p>
                                                     <p>Subtotal: <em>{retake.order_subtotal}</em></p>
                                                     <p>Tip: <em>{retake.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{retake.first_name}{retake.last_name}</em></p>
+                                                    <p>Driver: <em>{retake.first_name} {retake.last_name}</em></p>
                                                     <p>Receipt Image: <em>{retake.receipt_image}</em></p>
+                                                    <button>View</button>
                                                 </td>
                                             </tr>
                                         </div>
