@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-    # UNAPPROVED RECEIPTS
+
+    # =================================================
+    #             ROUTES FOR UNAPPROVED MODEL
+    # =================================================
     # GET/INDEX
     # credit card receipts
     get '/receipts/unapproved/creditcard', to: 'unapproved#creditCardIndex'
@@ -11,19 +14,21 @@ Rails.application.routes.draw do
     get '/receipts/unapproved/retake', to: 'unapproved#retakeIndex'
     # SHOW Unapproved Receipt
     # receipt by id
-    get '/receipts/unapproved/:id', to: 'unapproved#receiptShow'
+    get '/receipts/unapproved/:id', to: 'unapproved#showReceipt'
 
     ######## TEST ########
     # PUT/UPDATE
     # retake receipt image
-    # put '/receipts/unapproved/:id/retake', to: 'unapproved#receiptRetake'
+    # put '/receipts/unapproved/:id/retake', to: 'unapproved#retakeReceipt'
     # approve receipt image
     # put '/receipts/unapproved/:id/approve', to: 'unapproved#receiptApproved'
     ######################
 
 
 
-    # APPROVED RECEIPTS
+    # =================================================
+    #             ROUTES FOR APPROVED MODEL
+    # =================================================
     # GET/INDEX
     # credit card receipts
     get '/receipts/approved/creditcard', to: 'approved#creditCardIndex'

@@ -131,6 +131,15 @@ class Unapproved
         return result
     end
 
+end
+
+
+
+
+
+
+
+
     # UPDATE ROUTES
     # Approve Unapproved Receipt by ID
     # def self.approveReceipt id, opts
@@ -148,8 +157,6 @@ class Unapproved
     # def self.retakeReceipt id, opts
     #
     # end
-
-end
 
 
 

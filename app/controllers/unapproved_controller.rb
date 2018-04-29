@@ -21,7 +21,7 @@ class UnapprovedController < ApplicationController
 
     # GET/SHOW
     # show credit receipt-img of id
-    def receiptShow
+    def showReceipt
         render json: Unapproved.findReceipt(params["id"])
     end
 
