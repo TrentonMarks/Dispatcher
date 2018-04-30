@@ -25,6 +25,7 @@ class UnappNav extends React.Component{
         this.getOnline = this.getOnline.bind(this)
         this.getCash = this.getCash.bind(this)
         this.getRetake = this.getRetake.bind(this)
+        this.getReceipt = this.getReceipt.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -35,6 +36,7 @@ class UnappNav extends React.Component{
             allOnline: [],
             allCash: [],
             allRetake: [],
+            receiptById: [],
             creditcard: {},
             online: {},
             cash: {},
@@ -60,7 +62,6 @@ class UnappNav extends React.Component{
         {this.state.showingOnline ? this.getAllOnline() : ''}
         {this.state.showingCash ? this.getAllCash() : ''}
         {this.state.showingRetake ? this.getAllRetake() : ''}
-        {this.state.showingReceipt ? this.getReceipt() : ''}
     }
     getCreditCard(creditcard){
         this.setState({creditcard: creditcard})
@@ -74,6 +75,9 @@ class UnappNav extends React.Component{
     getRetake(retake){
         this.setState({retake: retake})
     }
+    getReceipt(receipt){
+        this.setState({receipt: receipt})
+    }
     getAllCredit(){
         fetch('/receipts/unapproved/creditcard')
             .then(response => response.json())
@@ -81,7 +85,6 @@ class UnappNav extends React.Component{
                 this.setState({
                     allCredit: data
                 })
-                console.log(this.state.allCredit)
             }).catch(error => console.log(error))
     }
     getAllOnline(){
@@ -91,7 +94,6 @@ class UnappNav extends React.Component{
                 this.setState({
                     allOnline: data
                 })
-                console.log(this.state.allOnline);
             }).catch(error => console.log(error))
     }
     getAllCash(){
@@ -101,7 +103,6 @@ class UnappNav extends React.Component{
                 this.setState({
                     allCash: data
                 })
-                console.log(this.state.allCash)
             }).catch(error => console.log(error))
     }
     getAllRetake(){
@@ -111,12 +112,7 @@ class UnappNav extends React.Component{
                 this.setState({
                     allRetake: data
                 })
-                console.log(this.state.allRetake)
             }).catch(error => console.log(error))
-    }
-    getReceipt(){
-        fetch('/receipts/unapproved/:id')
-            .then
     }
     render(){
         return  <div>
@@ -133,20 +129,17 @@ class UnappNav extends React.Component{
 
                     </form>
 
-                    <DataTable state={this.state} changeState={this.changeState}/>
-
-                </div>
-    }
-}
-class ShowReceipt extends React.Component{
-    render(){
-        return  <div>
+                    <UnappTable
+                        state={this.state}
+                        changeState={this.changeState}
+                        getReceipt={this.getReceipt}
+                    />
 
                 </div>
     }
 }
 // Data Tables for Unapproved CC, Online, Cash, and Retake Receipts
-class DataTable extends React.Component{
+class UnappTable extends React.Component{
     render(){
         return  <table>
                     <tbody>
@@ -164,7 +157,10 @@ class DataTable extends React.Component{
                                                     <p>Tip: <em>{creditcard.submitted_tip}</em></p>
                                                     <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
                                                     <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
-                                                    <button onClick={()=>this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>View</button>
+                                                    <button onClick={()=>{
+                                                        this.props.getReceipt(creditcard)
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                    }}>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -184,7 +180,10 @@ class DataTable extends React.Component{
                                                     <p>Tip: <em>{online.submitted_tip}</em></p>
                                                     <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
                                                     <p>Receipt Image: <em>{online.receipt_image}</em></p>
-                                                    <button onClick={()=>this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>View</button>
+                                                    <button onClick={()=>{
+                                                        this.props.getReceipt(online)
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                    }}>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -204,7 +203,10 @@ class DataTable extends React.Component{
                                                     <p>Tip: <em>{cash.submitted_tip}</em></p>
                                                     <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
                                                     <p>Receipt Image: <em>{cash.receipt_image}</em></p>
-                                                    <button onClick={()=>this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>View</button>
+                                                    <button onClick={()=>{
+                                                        this.props.getReceipt(cash)
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                    }}>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -224,7 +226,10 @@ class DataTable extends React.Component{
                                                     <p>Tip: <em>{retake.submitted_tip}</em></p>
                                                     <p>Driver: <em>{retake.first_name} {retake.last_name}</em></p>
                                                     <p>Receipt Image: <em>{retake.receipt_image}</em></p>
-                                                    <button onClick={()=>this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')}>View</button>
+                                                    <button onClick={()=>{
+                                                        this.props.getReceipt(retake)
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                    }}>View</button>
                                                 </td>
                                             </tr>
                                         </div>
@@ -232,7 +237,20 @@ class DataTable extends React.Component{
                         }
                         {
                             this.props.state.showingReceipt ?
-                            <h3>Show Route Works!!!</h3> : ''
+                                <div>
+                                    <h3>SHOW</h3>
+                                    <tr>
+                                        <td>
+                                            <p>Order #: <em>{this.props.state.receipt.id}</em></p>
+                                            <p>Restaurant: <em>{this.props.state.receipt.name}</em></p>
+                                            <p>Ordered At: <em>{this.props.state.receipt.order_time}</em></p>
+                                            <p>Subtotal: <em>{this.props.state.receipt.order_subtotal}</em></p>
+                                            <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
+                                            <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
+                                            <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
+                                        </td>
+                                    </tr>
+                                </div> : ''
                         }
                     </tbody>
                 </table>
