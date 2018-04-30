@@ -26,6 +26,7 @@ class UnappNav extends React.Component{
         this.getCash = this.getCash.bind(this)
         this.getRetake = this.getRetake.bind(this)
         this.getReceipt = this.getReceipt.bind(this)
+        this.assignAsRetake = this.assignAsRetake.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -114,6 +115,23 @@ class UnappNav extends React.Component{
                 })
             }).catch(error => console.log(error))
     }
+    assignAsRetake(receipt){
+        fetch('/receipts/unapproved/' + receipt.id + '/retake', {
+            body: JSON.stringify(receipt),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json'
+            }
+        })
+        .then(updatedReceipt => {
+            return updatedReceipt.json()
+        })
+        .then(jsonedReceipt => {
+            this.getAllRetake()
+            this.changeState('showingRetake', 'showingReceipt','showingCredit', 'showingOnline', 'showingCash')
+        })
+        .catch(error => console.log(error))
+    }
     render(){
         return  <div>
 
@@ -133,6 +151,7 @@ class UnappNav extends React.Component{
                         state={this.state}
                         changeState={this.changeState}
                         getReceipt={this.getReceipt}
+                        assignAsRetake={this.assignAsRetake}
                     />
 
                 </div>
@@ -248,7 +267,7 @@ class UnappTable extends React.Component{
                                             <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
                                             <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
                                             <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
-                                            <button>Retake</button>
+                                            <button onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button>
                                         </td>
                                     </tr>
                                 </div> : ''
