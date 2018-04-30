@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     ######## TEST ########
     # PUT/UPDATE
     # retake receipt image
-    # put '/receipts/unapproved/:id/retake', to: 'unapproved#retakeReceipt'
+    put '/receipts/unapproved/:id/retake', to: 'unapproved#retakeReceipt'
     # approve receipt image
     # put '/receipts/unapproved/:id/approve', to: 'unapproved#receiptApproved'
     ######################

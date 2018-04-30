@@ -248,6 +248,7 @@ class UnappTable extends React.Component{
                                             <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
                                             <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
                                             <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
+                                            <button>Retake</button>
                                         </td>
                                     </tr>
                                 </div> : ''

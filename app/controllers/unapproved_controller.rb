@@ -31,8 +31,8 @@ class UnapprovedController < ApplicationController
     #     render json: Unapproved.approveReceipt(params["id"], params["unapproved"])
     # end
     # retake_receipt turns true
-    # def receiptRetake
-    #     render json: Unapproved.retakeReceipt(params["id"], params["order"])
-    # end
+    def retakeReceipt
+        render json: Unapproved.retakeReceipt(params["id"], params["order"])
+    end
 
 end

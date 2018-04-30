@@ -42,6 +42,7 @@ class Unapproved
                     ON  orders.restaurant_id = restaurants.id
                 WHERE   orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
+                    AND orders.retake_receipt IS NULL
                     AND orders.payment_type = 'credit';
             SQL
         )
@@ -63,6 +64,7 @@ class Unapproved
                     ON  orders.restaurant_id = restaurants.id
                 WHERE   orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
+                    AND orders.retake_receipt IS NULL
                     AND orders.payment_type = 'online';
             SQL
         )
@@ -84,6 +86,7 @@ class Unapproved
                     ON  orders.restaurant_id = restaurants.id
                 WHERE   orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
+                    AND orders.retake_receipt IS NULL
                     AND orders.payment_type = 'cash';
             SQL
         )
@@ -109,7 +112,7 @@ class Unapproved
         return results
     end
 
-    # SHOW ROUTES
+    # SHOW ROUTE
     # Unapproved by ID
     def self.findReceipt id
         results = DB.exec(
@@ -131,6 +134,17 @@ class Unapproved
         return result
     end
 
+    # PUT ROUTES
+    # Retake Unapproved Receipt by ID
+    def self.retakeReceipt id, opts
+        results = DB.exec(
+            <<-SQL
+                UPDATE orders
+                SET retake_receipt = true
+                WHERE id = #{id}
+            SQL
+        )
+    end
 end
 
 
@@ -153,10 +167,7 @@ end
     #     )
     #     return Approved.new results.first
     # end
-    # Retake Unapproved Receipt by ID
-    # def self.retakeReceipt id, opts
-    #
-    # end
+
 
 
 
