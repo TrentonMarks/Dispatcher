@@ -150,7 +150,7 @@ class Unapproved
         results = DB.exec(
             <<-SQL
                 UPDATE orders
-                SET receipt_approved = current_timestamp
+                SET receipt_approved = current_timestamp, retake_receipt = NULL
                 WHERE id = #{id}
             SQL
         )

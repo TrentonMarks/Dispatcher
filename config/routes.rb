@@ -24,16 +24,6 @@ Rails.application.routes.draw do
     put '/receipts/unapproved/:id/approve', to: 'unapproved#approveReceipt'
 
 
-
-
-
-
-
-
-
-
-
-
     # =================================================
     #             ROUTES FOR APPROVED MODEL
     # =================================================
@@ -41,12 +31,12 @@ Rails.application.routes.draw do
     # credit card receipts
     get '/receipts/approved/creditcard', to: 'approved#creditCardIndex'
     # online receipts
-    get '/receipts/approved/online', to: 'approved#onlineIndex'
+    # get '/receipts/approved/online', to: 'approved#onlineIndex'
     # cash receipts
-    get '/receipts/approved/cash', to: 'approved#cashIndex'
+    # get '/receipts/approved/cash', to: 'approved#cashIndex'
     # SHOW Approved Receipt
     # receipt by id
-    get '/receipts/approved/:id', to: 'approved#receiptShow'
+    # get '/receipts/approved/:id', to: 'approved#receiptShow'
 
     ######## TEST ########
     # PUT/UPDATE

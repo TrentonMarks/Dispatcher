@@ -1,8 +1,5 @@
 class Approved
 
-    # attribute readers for instance access
-    # attr_reader :id, :driver_id, :restaurant_id, :order_time, :customer_address, :order_subtotal, :payment_type, :tip_type, :dropoff_time, :receipt_image, :submitted_tip, :receipt_approved, :retake_receipt, :no_tip, :cash_tip
-
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
 
@@ -40,36 +37,21 @@ class Approved
                     restaurants.name
                 FROM orders
                 LEFT JOIN drivers
-                    ON orders.driver_id = drivers.id
+                    ON  orders.driver_id = drivers.id
                 LEFT JOIN restaurants
-                    ON orders.restaurant_id = restaurants.id
+                    ON  orders.restaurant_id = restaurants.id
+                WHERE orders.receipt_approved IS NOT NULL
+                    AND orders.payment_type = 'credit';
             SQL
         )
-        return results.map do |result|
-            if result["receipt_approved"] && result["payment_type"] === "credit"
-                    Approved.new({
-                        "id" => result["id"],
-                        "driver_id" => result["driver_id"],
-                        "first_name" => result["first_name"],
-                        "last_name" => result["last_name"],
-                        "restaurant_id" => result["restaurant_id"],
-                        "name" => result["name"],
-                        "order_time" => result["order_time"],
-                        "customer_address" => result["customer_address"],
-                        "order_subtotal" => result["order_subtotal"],
-                        "payment_type" => result["payment_type"],
-                        "tip_type" => result["tip_type"],
-                        "dropoff_time" => result["dropoff_time"],
-                        "receipt_image" => result["receipt_image"],
-                        "submitted_tip" => result["submitted_tip"],
-                        "receipt_approved" => result["receipt_approved"],
-                        "retake_receipt" => result["retake_receipt"],
-                        "no_tip" => result["no_tip"],
-                        "cash_tip" => result["cash_tip"]
-                        })
-            end
-        end
+        return results
     end
+
+
+
+
+
+
     # index/get - Approved Online Receipts
     def self.allOnline
         results = DB.exec(
