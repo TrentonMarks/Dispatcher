@@ -31,17 +31,18 @@ Rails.application.routes.draw do
     # credit card receipts
     get '/receipts/approved/creditcard', to: 'approved#creditCardIndex'
     # online receipts
-    # get '/receipts/approved/online', to: 'approved#onlineIndex'
+    get '/receipts/approved/online', to: 'approved#onlineIndex'
     # cash receipts
-    # get '/receipts/approved/cash', to: 'approved#cashIndex'
-    # SHOW Approved Receipt
-    # receipt by id
-    # get '/receipts/approved/:id', to: 'approved#receiptShow'
+    get '/receipts/approved/cash', to: 'approved#cashIndex'
+    # retake receipts
+    get '/receipts/approved/retake', to: 'approved#retakeIndex'
 
-    ######## TEST ########
+    # GET/SHOW
+    # receipt by id
+    get '/receipts/approved/:id', to: 'approved#showReceipt'
+
     # PUT/UPDATE
-    # unapprove receipt image
-    # put '/receipts/approved/:id/unapprove', to: 'unapproved#receiptRetake'
-    ######################
+    # approve receipt image
+    put '/receipts/approved/:id/unapprove', to: 'approved#unapproveReceipt'
 
 end

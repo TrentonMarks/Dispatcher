@@ -6,24 +6,29 @@ class ApprovedController < ApplicationController
     def creditCardIndex
         render json: Approved.allCreditCard
     end
-    # all approved online-receipts
-    # def onlineIndex
-    #     render json: Approved.allOnline
-    # end
-    # all approved cash-receipts
-    # def cashIndex
-    #     render json: Approved.allCash
-    # end
+    # all unapproved online-receipts
+    def onlineIndex
+        render json: Approved.allOnline
+    end
+    # all unapproved cash-receipts
+    def cashIndex
+        render json: Approved.allCash
+    end
+    # all unapproved retake-receipts
+    def retakeIndex
+        render json: Approved.allRetake
+    end
 
     # GET/SHOW
     # show credit receipt-img of id
-    # def receiptShow
-    #     render json: Approved.findReceipt(params["id"])
-    # end
+    def showReceipt
+        render json: Approved.findReceipt(params["id"])
+    end
+
     # PUT/UPDATE
-    # receipt_unapproved gains a timestamp value
-    # def receiptUnapproved
-    #     render json: Approved.unapproveReceipt(params["id"], params["order"])
-    # end
+    # receipt_approved is given value of NULL
+    def unapproveReceipt
+        render json: Approved.unapproveReceipt(params["id"], params["order"])
+    end
 
 end
