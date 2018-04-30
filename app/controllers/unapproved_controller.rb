@@ -27,9 +27,9 @@ class UnapprovedController < ApplicationController
 
     # PUT/UPDATE
     # receipt_approved gains a timestamp value
-    # def receiptApproved
-    #     render json: Unapproved.approveReceipt(params["id"], params["unapproved"])
-    # end
+    def approveReceipt
+        render json: Unapproved.approveReceipt(params["id"], params["order"])
+    end
     # retake_receipt turns true
     def retakeReceipt
         render json: Unapproved.retakeReceipt(params["id"], params["order"])

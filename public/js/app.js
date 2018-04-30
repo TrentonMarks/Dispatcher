@@ -27,6 +27,7 @@ class UnappNav extends React.Component{
         this.getRetake = this.getRetake.bind(this)
         this.getReceipt = this.getReceipt.bind(this)
         this.assignAsRetake = this.assignAsRetake.bind(this)
+        this.assignAsApproved = this.assignAsApproved.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
@@ -132,6 +133,23 @@ class UnappNav extends React.Component{
         })
         .catch(error => console.log(error))
     }
+    assignAsApproved(receipt){
+        fetch('/receipts/unapproved/' + receipt.id + '/approve', {
+            body: JSON.stringify(receipt),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json'
+            }
+        })
+        .then(updatedReceipt => {
+            return updatedReceipt.json()
+        })
+        .then(jsonedReceipt => {
+            this.getAllRetake()
+            this.changeState('showingCredit', 'showingReceipt','showingRetake', 'showingOnline', 'showingCash')
+        })
+        .catch(error => console.log(error))
+    }
     render(){
         return  <div>
 
@@ -148,10 +166,11 @@ class UnappNav extends React.Component{
                     </form>
 
                     <UnappTable
-                        state={this.state}
-                        changeState={this.changeState}
-                        getReceipt={this.getReceipt}
-                        assignAsRetake={this.assignAsRetake}
+                        state = {this.state}
+                        changeState = {this.changeState}
+                        getReceipt = {this.getReceipt}
+                        assignAsRetake = {this.assignAsRetake}
+                        assignAsApproved = {this.assignAsApproved}
                     />
 
                 </div>
@@ -268,6 +287,7 @@ class UnappTable extends React.Component{
                                             <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
                                             <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
                                             <button onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button>
+                                            <button onClick={()=>{this.props.assignAsApproved(this.props.state.receipt)}}>Approve</button>
                                         </td>
                                     </tr>
                                 </div> : ''

@@ -42,7 +42,7 @@ class Unapproved
                     ON  orders.restaurant_id = restaurants.id
                 WHERE   orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
-                    AND orders.retake_receipt IS NULL
+                    AND orders.retake_receipt IS NOT true
                     AND orders.payment_type = 'credit';
             SQL
         )
@@ -64,7 +64,7 @@ class Unapproved
                     ON  orders.restaurant_id = restaurants.id
                 WHERE   orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
-                    AND orders.retake_receipt IS NULL
+                    AND orders.retake_receipt IS NOT true
                     AND orders.payment_type = 'online';
             SQL
         )
@@ -86,7 +86,7 @@ class Unapproved
                     ON  orders.restaurant_id = restaurants.id
                 WHERE   orders.receipt_image IS NOT NULL
                     AND orders.receipt_approved IS NULL
-                    AND orders.retake_receipt IS NULL
+                    AND orders.retake_receipt IS NOT true
                     AND orders.payment_type = 'cash';
             SQL
         )
@@ -106,7 +106,7 @@ class Unapproved
                 ON orders.driver_id = drivers.id
             LEFT JOIN restaurants
                 ON orders.restaurant_id = restaurants.id
-            WHERE orders.retake_receipt IS NOT NULL;
+            WHERE orders.retake_receipt = true;
             SQL
         )
         return results
@@ -135,7 +135,7 @@ class Unapproved
     end
 
     # PUT ROUTES
-    # Retake Unapproved Receipt by ID
+    # Retake Unapproved Receipt by Id
     def self.retakeReceipt id, opts
         results = DB.exec(
             <<-SQL
@@ -145,63 +145,14 @@ class Unapproved
             SQL
         )
     end
+    # Approve Unapproved Receipt by Id
+    def self.approveReceipt id, opts
+        results = DB.exec(
+            <<-SQL
+                UPDATE orders
+                SET receipt_approved = current_timestamp
+                WHERE id = #{id}
+            SQL
+        )
+    end
 end
-
-
-
-
-
-
-
-
-    # UPDATE ROUTES
-    # Approve Unapproved Receipt by ID
-    # def self.approveReceipt id, opts
-    #     results = DB.exec(
-    #         <<-SQL
-    #             UPDATE orders
-    #             SET receipt_approved = #{opts["receipt_approved"]}
-    #             WHERE id = #{id}
-    #             RETURNING id, driver_id, restaurant_id, order_time, customer_address, order_subtotal, payment_type, tip_type, dropoff_time, receipt_image, submitted_tip, receipt_approved, retake_receipt, no_tip, cash_tip;
-    #         SQL
-    #     )
-    #     return Approved.new results.first
-    # end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# driver_id='#{opts["driver_id"]}',
-# restaurant_id='#{opts["restaurant_id"]}',
-# order_time='#{opts["order_time"]}',
-# customer_address='#{opts["customer_address"]}',
-# order_subtotal='#{opts["order_subtotal"]}',
-# payment_type='#{opts["payment_type"]}',
-# tip_type='#{opts["tip_type"]}',
-# dropoff_time='#{opts["dropoff_time"]}',
-# receipt_image='#{opts["receipt_image"]}',
-# submitted_tip='#{opts["submitted_tip"]}',
-# receipt_approved=#{opts["receipt_approved"]},
-# retake_receipt='#{opts["retake_receipt"]}',
-# no_tip='#{opts["no_tip"]}',
-# cash_tip='#{opts["cash_tip"]}'

@@ -12,17 +12,25 @@ Rails.application.routes.draw do
     get '/receipts/unapproved/cash', to: 'unapproved#cashIndex'
     # retake receipts
     get '/receipts/unapproved/retake', to: 'unapproved#retakeIndex'
-    # SHOW Unapproved Receipt
+
+    # GET/SHOW
     # receipt by id
     get '/receipts/unapproved/:id', to: 'unapproved#showReceipt'
 
-    ######## TEST ########
     # PUT/UPDATE
     # retake receipt image
     put '/receipts/unapproved/:id/retake', to: 'unapproved#retakeReceipt'
     # approve receipt image
-    # put '/receipts/unapproved/:id/approve', to: 'unapproved#receiptApproved'
-    ######################
+    put '/receipts/unapproved/:id/approve', to: 'unapproved#approveReceipt'
+
+
+
+
+
+
+
+
+
 
 
 
