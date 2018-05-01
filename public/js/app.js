@@ -240,12 +240,14 @@ class UnappNav extends React.Component{
         this.getReceipt = this.getReceipt.bind(this)
         this.assignAsRetake = this.assignAsRetake.bind(this)
         this.assignAsApproved = this.assignAsApproved.bind(this)
+        this.handleUpdateSubmit = this.handleUpdateSubmit.bind(this)
         this.state = {
             showingCredit: true,
             showingOnline: false,
             showingCash: false,
             showingRetake: false,
             showingReceipt: false,
+            showingEditForm: false,
             allCredit: [],
             allOnline: [],
             allCash: [],
@@ -261,13 +263,14 @@ class UnappNav extends React.Component{
     componentDidMount(){
         this.getAllCredit()
     }
-    changeState(st1, st2, st3, st4, st5){
+    changeState(st1, st2, st3, st4, st5, st6){
         this.setState({
             [st1]: true,
             [st2]: false,
             [st3]: false,
             [st4]: false,
-            [st5]: false
+            [st5]: false,
+            [st6]: false
         })
     }
     handleSubmit(event){
@@ -362,27 +365,47 @@ class UnappNav extends React.Component{
         })
         .catch(error => console.log(error))
     }
+    handleUpdateSubmit(receipt){
+        fetch('/receipts/unapproved/' + receipt.id + '/edit', {
+            body: JSON.stringify(receipt),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(updatedReceipt => {
+            return updatedReceipt.json()
+        })
+        .then(jsonedReceipt => {
+            this.getAllCredit()
+            this.changeState('showingCredit', 'showingEditForm')
+        })
+        .catch(error => console.log(error))
+    }
     render(){
         return  <div>
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingReceipt')}>Credit Card</button>
+                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Credit Card</button>
 
-                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake', 'showingReceipt')}>Online</button>
+                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Online</button>
 
-                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake', 'showingReceipt')}>Cash</button>
+                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Cash</button>
 
-                        <button onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash', 'showingReceipt')}>Retake</button>
+                        <button onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash', 'showingReceipt', 'showingEditForm')}>Retake</button>
 
                     </form>
 
                     <UnappTable
                         state = {this.state}
+                        receipt = {this.state.receipt}
                         changeState = {this.changeState}
                         getReceipt = {this.getReceipt}
                         assignAsRetake = {this.assignAsRetake}
                         assignAsApproved = {this.assignAsApproved}
+                        handleUpdateSubmit = {this.handleUpdateSubmit}
                     />
 
                 </div>
@@ -409,7 +432,7 @@ class UnappTable extends React.Component{
                                                     <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
                                                     <button onClick={()=>{
                                                         this.props.getReceipt(creditcard)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
                                                     }}>View</button>
                                                 </td>
                                             </tr>
@@ -432,7 +455,7 @@ class UnappTable extends React.Component{
                                                     <p>Receipt Image: <em>{online.receipt_image}</em></p>
                                                     <button onClick={()=>{
                                                         this.props.getReceipt(online)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
                                                     }}>View</button>
                                                 </td>
                                             </tr>
@@ -455,7 +478,7 @@ class UnappTable extends React.Component{
                                                     <p>Receipt Image: <em>{cash.receipt_image}</em></p>
                                                     <button onClick={()=>{
                                                         this.props.getReceipt(cash)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
                                                     }}>View</button>
                                                 </td>
                                             </tr>
@@ -478,7 +501,7 @@ class UnappTable extends React.Component{
                                                     <p>Receipt Image: <em>{retake.receipt_image}</em></p>
                                                     <button onClick={()=>{
                                                         this.props.getReceipt(retake)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake','showingEditForm')
                                                     }}>View</button>
                                                 </td>
                                             </tr>
@@ -499,19 +522,142 @@ class UnappTable extends React.Component{
                                             <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
                                             <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
                                             <button onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button>
+                                            <button onClick={()=>{
+                                                this.props.changeState('showingEditForm', 'showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                            }}>Edit</button>
                                             <button onClick={()=>{this.props.assignAsApproved(this.props.state.receipt)}}>Approve</button>
                                         </td>
                                     </tr>
+                                </div> : ''
+                        }
+                        {
+                            this.props.state.showingEditForm ?
+                                <div>
+                                    <EditForm
+                                    changeState = {this.props.changeState}
+                                    handleUpdateSubmit = {this.props.handleUpdateSubmit}
+                                    receipt = {this.props.receipt}
+                                    />
                                 </div> : ''
                         }
                     </tbody>
                 </table>
     }
 }
-// Form Within Show-Page to Update Submitted Receipts
-class UpdateForm extends React.Component{
+// Form Within Show-Page to Edit Submitted Receipts
+class EditForm extends React.Component{
+    constructor(props){
+        super(props)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.state = {
+            customer_address: '',
+            order_subtotal: 0,
+            payment_type: '',
+            tip_type: '',
+            receipt_image: '',
+            submitted_tip: 0,
+            no_tip: false,
+            cash_tip: false
+        }
+    }
+    componentDidMount(){
+        if(this.props.receipt){
+            this.setState({
+                id: this.props.receipt.id,
+                customer_address: this.props.receipt.customer_address,
+                order_subtotal: this.props.receipt.order_subtotal,
+                payment_type: this.props.receipt.payment_type,
+                tip_type: this.props.receipt.tip_type,
+                receipt_image: this.props.receipt.receipt_image,
+                submitted_tip: this.props.receipt.submitted_tip,
+                no_tip: this.props.receipt.no_tip,
+                cash_tip: this.props.receipt.cash_tip
+            })
+        }
+    }
+    handleChange(event){
+        this.setState({ [event.target.id]: event.target.value})
+    }
+    handleSubmit(event){
+        event.preventDefault()
+        this.props.handleUpdateSubmit(this.state)
+    }
     render(){
-        
+        return  <div>
+                    <form onSubmit={this.handleSubmit}>
+
+                        <label for='customer_address'>Customer Address</label>
+                        <input
+                            type='text'
+                            id='customer_address'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.customer_address}
+                        />
+
+                        <label for='order_subtotal'>Order Subtotal</label>
+                        <input
+                            type='text'
+                            id='order_subtotal'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.order_subtotal}
+                        />
+
+                        <label for='payment_type'>Payment Type</label>
+                        <input
+                            type='text'
+                            id='payment_type'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.payment_type}
+                        />
+
+                        <label for='tip_type'>Tip Type</label>
+                        <input
+                            type='text'
+                            id='tip_type'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.tip_type}
+                        />
+
+                        <label for='receipt_image'>Receipt Image</label>
+                        <input
+                            type='text'
+                            id='receipt_image'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.receipt_image}
+                        />
+
+                        <label for='submitted_tip'>Submitted Tip</label>
+                        <input
+                            type='text'
+                            id='submitted_tip'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.submitted_tip}
+                        />
+
+                        <label for='no_tip'>No Tip</label>
+                        <input
+                            type='text'
+                            id='no_tip'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.no_tip}
+                        />
+
+                        <label for='cash_tip'>Cash Tip</label>
+                        <input
+                            type='text'
+                            id='cash_tip'
+                            onChange={this.handleChange}
+                            placeholder={this.props.receipt.cash_tip}
+                        />
+
+                        <input type='submit' />
+
+                        <button onClick={()=>this.props.changeState('showingCredit', 'showingEditForm')}>Cancel
+                        </button>
+
+                    </form>
+                </div>
     }
 }
 

@@ -13,12 +13,12 @@ class Unapproved
         @name = opts["name"]
         @order_time = opts["order_time"]
         @customer_address = opts["customer_address"]
-        @order_subtotal = opts["order_subtotal"]
+        @order_subtotal = opts["order_subtotal"].to_i
         @payment_type = opts["payment_type"]
         @tip_type = opts["tip_type"]
         @dropoff_time = opts["dropoff_time"]
         @receipt_image = opts["receipt_image"]
-        @submitted_tip = opts["submitted_tip"]
+        @submitted_tip = opts["submitted_tip"].to_i
         @receipt_approved = opts["receipt_approved"]
         @retake_receipt = opts["retake_receipt"]
         @no_tip = opts["no_tip"]
@@ -156,19 +156,11 @@ class Unapproved
         )
     end
     # Update Unapproved Receipt by Id
-    def self.updateReceipt id, opts
+    def self.editReceipt id, opts
         results = DB.exec(
             <<-SQL
                 UPDATE orders
-                SET
-                    customer_address = '#{opts["customer_address"]}',
-                    order_subtotal = '#{opts["order_subtotal"]}',
-                    payment_type = '#{opts["payment_type"]}',
-                    tip_type = '#{opts["tip_type"]}',
-                    receipt_image = '#{opts["receipt_image"]}',
-                    submitted_tip = '#{opts["submitted_tip"]}',
-                    no_tip = '#{opts["no_tip"]}',
-                    cash_tip = '#{opts["cash_tip"]}'
+                SET customer_address='#{opts["customer_address"]}'
                 WHERE id = #{id}
                 RETURNING
                     customer_address, order_subtotal, payment_type, tip_type, receipt_image, submitted_tip, no_tip, cash_tip;
@@ -177,3 +169,8 @@ class Unapproved
     end
 
 end
+
+
+#
+# customer_address='#{opts["customer_address"]}', order_subtotal='#{opts["order_subtotal"]}', payment_type='#{opts["payment_type"]}', tip_type='#{opts["tip_type"]}', receipt_image='#{opts["receipt_image"]}', submitted_tip='#{opts["submitted_tip"]}',
+# no_tip='#{opts["cash_tip"]}'
