@@ -155,4 +155,25 @@ class Unapproved
             SQL
         )
     end
+    # Update Unapproved Receipt by Id
+    def self.updateReceipt id, opts
+        results = DB.exec(
+            <<-SQL
+                UPDATE orders
+                SET
+                    customer_address = '#{opts["customer_address"]}',
+                    order_subtotal = '#{opts["order_subtotal"]}',
+                    payment_type = '#{opts["payment_type"]}',
+                    tip_type = '#{opts["tip_type"]}',
+                    receipt_image = '#{opts["receipt_image"]}',
+                    submitted_tip = '#{opts["submitted_tip"]}',
+                    no_tip = '#{opts["no_tip"]}',
+                    cash_tip = '#{opts["cash_tip"]}'
+                WHERE id = #{id}
+                RETURNING
+                    customer_address, order_subtotal, payment_type, tip_type, receipt_image, submitted_tip, no_tip, cash_tip;
+            SQL
+        )
+    end
+
 end

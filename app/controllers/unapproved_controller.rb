@@ -34,5 +34,10 @@ class UnapprovedController < ApplicationController
     def retakeReceipt
         render json: Unapproved.retakeReceipt(params["id"], params["order"])
     end
+    # form that allows editting of many columns
+    def updateReceipt
+        render json: Unapproved.updateReceipt(params["id"], params["order"])
+    end
+
 
 end

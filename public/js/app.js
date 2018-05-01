@@ -227,7 +227,7 @@ class AppTable extends React.Component{
 /// Unapproved Receipts ///
 ///////////////////////////
 
-// Credit Card, Online, Cash, Retake Nav Bar for Unapproved Receipts
+// Nav Bar for Credit Card, Online, Cash, and Retake Unapproved Receipts
 class UnappNav extends React.Component{
     constructor(props){
         super(props)
@@ -388,7 +388,7 @@ class UnappNav extends React.Component{
                 </div>
     }
 }
-// Data Tables for Unapproved CC, Online, Cash, and Retake Receipts
+// Data Table for Unapproved CC, Online, Cash, and Retake Receipts
 class UnappTable extends React.Component{
     render(){
         return  <table>
@@ -506,6 +506,12 @@ class UnappTable extends React.Component{
                         }
                     </tbody>
                 </table>
+    }
+}
+// Form Within Show-Page to Update Submitted Receipts
+class UpdateForm extends React.Component{
+    render(){
+        
     }
 }
 
