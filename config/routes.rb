@@ -47,4 +47,35 @@ Rails.application.routes.draw do
     # approve receipt image
     put '/receipts/approved/:id/unapprove', to: 'approved#unapproveReceipt'
 
+
+    # =================================================
+    #             ROUTES FOR RESTAURANTS MODEL
+    # =================================================
+    # GET/INDEX
+    # stats by day
+    get '/statistics/restaurants/day', to: 'restaurants#dayIndex'
+    # stats by week
+    # get '/statistics/restaurants/week', to: 'restaurants#weekIndex'
+    # stats by month
+    # get '/statistics/restaurants/month', to: 'restaurants#monthIndex'
+
+    # =================================================
+    #             ROUTES FOR DRIVERS MODEL
+    # =================================================
+    # stats by day
+    # get '/statistics/drivers/day', to: 'drivers#dayIndex'
+    # stats by week
+    # get '/statistics/drivers/week', to: 'drivers#weekIndex'
+    # stats by month
+    # get '/statistics/drivers/month', to: 'drivers#monthIndex'
+    # =================================================
+    #             ROUTES FOR HEAD MODEL
+    # =================================================
+    # stats by day
+    # get '/statistics/head/day', to: 'head#dayIndex'
+    # stats by week
+    # get '/statistics/head/week', to: 'head#weekIndex'
+    # stats by month
+    # get '/statistics/head/month', to: 'head#monthIndex'
+
 end

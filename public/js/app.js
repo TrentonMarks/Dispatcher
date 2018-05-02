@@ -819,6 +819,11 @@ class MainNav extends React.Component{
     }
     render(){
         return  <div>
+
+                    <Header
+                        state={this.state}
+                    />
+
                     <button onClick={()=>{
                         this.changeState('showingOrders', 'showingReceipts', 'showingStatistics')
                     }}>Orders</button>
@@ -842,6 +847,7 @@ class MainNav extends React.Component{
                     {this.state.showingStatistics ?
                         <StatisticsNav state={this.state}/>
                     : ''}
+
                 </div>
     }
 }
