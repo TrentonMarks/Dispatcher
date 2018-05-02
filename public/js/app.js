@@ -1,9 +1,72 @@
 ////// STATISTICS TAB ////////
-// Restaurants/Drivers/Head Statistics Nav Bar
-class StatisticsNav extends React.Component{
+class RestaurantsNav extends React.Component{
     render(){
         return  <div>
-                    <h3>Statistics Tab!!!</h3>
+                    <h3>Restaurants Nav!</h3>
+                </div>
+    }
+}
+class DriversNav extends React.Component{
+    render(){
+        return  <div>
+                    <h3>Drivers Nav!</h3>
+                </div>
+    }
+}
+class HeadNav extends React.Component{
+    render(){
+        return  <div>
+                    <h3>Head Nav!</h3>
+                </div>
+    }
+}
+
+// Restaurants/Drivers/Head Statistics Nav Bar
+class StatisticsNav extends React.Component{
+    constructor(props){
+        super(props)
+        this.changeState = this.changeState.bind(this)
+        this.state = {
+            showingRestaurants: true,
+            showingDrivers: false,
+            showingHead: false
+        }
+
+    }
+    changeState(st1, st2, st3){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false
+        })
+    }
+    render(){
+        return  <div>
+
+                    <button onClick={()=>{
+                        this.changeState('showingRestaurants', 'showingDrivers', 'showingHead')
+                    }}>Restaurants</button>
+
+                    <button onClick={()=>{
+                        this.changeState('showingDrivers', 'showingRestaurants', 'showingHead')
+                    }}>Drivers</button>
+
+                    <button onClick={()=>{
+                        this.changeState('showingHead', 'showingRestaurants', 'showingDrivers')
+                    }}>Head</button>
+
+                    {this.state.showingRestaurants ?
+                        <RestaurantsNav />
+                    : ''}
+
+                    {this.state.showingDrivers ?
+                        <DriversNav />
+                    : ''}
+
+                    {this.state.showingHead ?
+                        <HeadNav />
+                    : ''}
+
                 </div>
     }
 }
