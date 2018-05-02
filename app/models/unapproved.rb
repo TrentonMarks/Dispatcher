@@ -161,12 +161,14 @@ class Unapproved
             <<-SQL
                 UPDATE orders
                 SET customer_address='#{opts["customer_address"]}'
-                WHERE id = #{id}
-                RETURNING
-                    customer_address, order_subtotal, payment_type, tip_type, receipt_image, submitted_tip, no_tip, cash_tip;
+                WHERE id=#{id}
             SQL
         )
     end
+
+
+
+
 
 end
 

@@ -1,7 +1,15 @@
-///////////////////////////
-//// Approved Receipts ////
-///////////////////////////
+////// STATISTICS TAB ////////
+// Restaurants/Drivers/Head Statistics Nav Bar
+class StatisticsNav extends React.Component{
+    render(){
+        return  <div>
+                    <h3>Statistics Tab!!!</h3>
+                </div>
+    }
+}
 
+
+////// RECEIPTS TAB ////////
 // Credit Card, Online, Cash Nav Bar for Unapproved Receipts
 class AppNav extends React.Component{
     constructor(props){
@@ -222,11 +230,6 @@ class AppTable extends React.Component{
     }
 }
 
-
-///////////////////////////
-/// Unapproved Receipts ///
-///////////////////////////
-
 // Nav Bar for Credit Card, Online, Cash, and Retake Unapproved Receipts
 class UnappNav extends React.Component{
     constructor(props){
@@ -417,7 +420,8 @@ class UnappTable extends React.Component{
         return  <table>
                     <tbody>
 
-                        {this.props.state.showingCredit ?
+                        {
+                            this.props.state.showingCredit ?
                             this.props.state.allCredit.map((creditcard, index)=>{
                                 return  <div>
                                             <h3>CREDIT</h3>
@@ -661,21 +665,8 @@ class EditForm extends React.Component{
     }
 }
 
-
-///////////////////////////
-////////// Other //////////
-///////////////////////////
-
-// Header Bar
-class Header extends React.Component{
-    render(){
-        return  <div>
-                    <h1>Receipts</h1>
-                </div>
-    }
-}
-// Approved/Unapproved Nav Bar
-class PrimaryNav extends React.Component{
+// Approved/Unapproved Receipts Nav Bar
+class ReceiptsNav extends React.Component{
     constructor(props){
         super(props)
         this.changeState = this.changeState.bind(this)
@@ -692,8 +683,6 @@ class PrimaryNav extends React.Component{
     }
     render(){
         return  <div>
-
-                    <Header />
 
                     <button onClick={()=>{
                         this.changeState('showingUnapproved', 'showingApproved')
@@ -716,8 +705,86 @@ class PrimaryNav extends React.Component{
 }
 
 
-// Renders: PrimaryNav
+////// ORDERS TAB ////////
+class OrdersNav extends React.Component{
+    render(){
+        return  <div>
+                    <h3>Orders Tab!!!</h3>
+                </div>
+    }
+}
+
+
+
+// Header Bar for Main App
+class Header extends React.Component{
+    render(){
+        return  <div>
+
+                    {this.props.state.showingOrders ?
+                        <h1>Orders</h1>
+                    : ''}
+
+                    {this.props.state.showingReceipts ?
+                        <h1>Receipts</h1>
+                    : ''}
+
+                    {this.props.state.showingStatistics ?
+                        <h1>Statistics</h1>
+                    : ''}
+
+                </div>
+    }
+}
+// Nav Bar for Main App
+class MainNav extends React.Component{
+    constructor(props){
+        super(props)
+        this.changeState = this.changeState.bind(this)
+        this.state = {
+            showingOrders: false,
+            showingReceipts: true,
+            showingStatistics: false
+        }
+    }
+    changeState(st1, st2, st3){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false
+        })
+    }
+    render(){
+        return  <div>
+                    <button onClick={()=>{
+                        this.changeState('showingOrders', 'showingReceipts', 'showingStatistics')
+                    }}>Orders</button>
+
+                    <button onClick={()=>{
+                        this.changeState('showingReceipts', 'showingOrders', 'showingStatistics')
+                    }}>Receipts</button>
+
+                    <button onClick={()=>{
+                        this.changeState('showingStatistics', 'showingOrders', 'showingReceipts')
+                    }}>Statistics</button>
+
+                    {this.state.showingOrders ?
+                        <OrdersNav state={this.state} />
+                    : ''}
+
+                    {this.state.showingReceipts ?
+                        <ReceiptsNav state={this.state}/>
+                    : ''}
+
+                    {this.state.showingStatistics ?
+                        <StatisticsNav state={this.state}/>
+                    : ''}
+                </div>
+    }
+}
+
+// Renders: ReceiptsNav
 ReactDOM.render(
-    <PrimaryNav />,
+    <MainNav />,
     document.querySelector('.container')
 )
