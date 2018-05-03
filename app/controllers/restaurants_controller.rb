@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
     # GET/INDEX
     # all stats by day
     def dayIndex
-        render json: Restaurant.dayIndex
+        render json: Restaurant.restaurantsDay
     end
     # all stats by week
     # def weekIndex
