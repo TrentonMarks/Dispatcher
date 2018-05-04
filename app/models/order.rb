@@ -53,6 +53,7 @@ class Order
         @cash_tip = opts["cash_tip"]
         @delivery_time = (Time.parse(opts["dropoff_at"]) - Time.parse(opts["ordered_at"]))/60
         @avg_PU_DO_time = (Time.parse(opts["dropoff_at"]) - Time.parse(opts["pickup_at"]))/60
+        @under_45 = @delivery_time > 45 ? false : true
     end
 
 end
