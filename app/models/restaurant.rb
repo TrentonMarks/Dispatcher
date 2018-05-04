@@ -1,8 +1,7 @@
 class Restaurant
 
     # attribute readers for instance access
-    attr_accessor :orders, :total_deliveries
-
+    attr_accessor :orders, :total_deliveries, :avg_PU_DO_time, :avg_delivery_time, :percent_under_45
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -17,8 +16,6 @@ class Restaurant
         @total_deliveries = opts["total_deliveries"]
         @orders = opts["orders"]
     end
-
-
 
     # GET ROUTES
     # get all restaurant statistics by day
@@ -43,7 +40,6 @@ class Restaurant
         )
         restaurants = []
         current_restaurant_id = nil
-        current_order_id = nil
         total_deliveries = nil
         results.each do |result|
             if result["restaurant_id"] === current_restaurant_id
@@ -94,7 +90,8 @@ class Restaurant
                             "receipt_approved_by_restaurant" => result["receipt_approved_by_restaurant"],
                             "retake_receipt_by_restaurant" => result["retake_receipt_by_restaurant"],
                             "no_tip" => result["no_tip"],
-                            "cash_tip" => result["cash_tip"]
+                            "cash_tip" => result["cash_tip"],
+                            "delivery_time" => result["delivery_time"]
                     })
                 )
                 restaurants.last.total_deliveries = restaurants.last.orders.length
@@ -165,4 +162,5 @@ class Restaurant
         end
         return restaurants
     end
+
 end

@@ -51,6 +51,7 @@ class Order
         @retake_receipt_by_restaurant = opts["retake_receipt_by_restaurant"]
         @no_tip = opts["no_tip"]
         @cash_tip = opts["cash_tip"]
+        @delivery_time = (Time.parse(opts["dropoff_at"]) - Time.parse(opts["ordered_at"]))/60
     end
 
 end

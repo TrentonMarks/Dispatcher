@@ -166,13 +166,4 @@ class Unapproved
         )
     end
 
-
-
-
-
 end
-
-
-#
-# customer_address='#{opts["customer_address"]}', order_subtotal='#{opts["order_subtotal"]}', payment_type='#{opts["payment_type"]}', tip_type='#{opts["tip_type"]}', receipt_image='#{opts["receipt_image"]}', submitted_tip='#{opts["submitted_tip"]}',
-# no_tip='#{opts["cash_tip"]}'
