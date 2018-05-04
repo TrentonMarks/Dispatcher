@@ -52,6 +52,7 @@ class Order
         @no_tip = opts["no_tip"]
         @cash_tip = opts["cash_tip"]
         @delivery_time = (Time.parse(opts["dropoff_at"]) - Time.parse(opts["ordered_at"]))/60
+        @avg_PU_DO_time = (Time.parse(opts["dropoff_at"]) - Time.parse(opts["pickup_at"]))/60
     end
 
 end

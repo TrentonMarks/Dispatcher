@@ -91,7 +91,8 @@ class Restaurant
                             "retake_receipt_by_restaurant" => result["retake_receipt_by_restaurant"],
                             "no_tip" => result["no_tip"],
                             "cash_tip" => result["cash_tip"],
-                            "delivery_time" => result["delivery_time"]
+                            "delivery_time" => result["delivery_time"],
+                            "avg_PU_DO_time" => result["avg_PU_DO_time"]
                     })
                 )
                 restaurants.last.total_deliveries = restaurants.last.orders.length
