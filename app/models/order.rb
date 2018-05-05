@@ -1,5 +1,7 @@
 class Order
 
+    attr_accessor :delivery_time, :restaurant_id
+
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
 

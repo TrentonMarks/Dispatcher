@@ -1,7 +1,7 @@
 class Restaurant
 
     # attribute readers for instance access
-    attr_accessor :orders, :total_deliveries, :avg_PU_DO_time, :avg_delivery_time, :percent_under_45
+    attr_accessor :orders, :total_deliveries, :avg_PU_DO_time, :avg_delivery_time, :percent_under_45, :delivery_time, :restaurant_id
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -39,8 +39,8 @@ class Restaurant
             SQL
         )
         restaurants = []
+        delivery_times = []
         current_restaurant_id = nil
-        total_deliveries = nil
         results.each do |result|
             if result["restaurant_id"] === current_restaurant_id
                 restaurants.last.orders.push(
@@ -96,15 +96,18 @@ class Restaurant
                     })
                 )
                 restaurants.last.total_deliveries = restaurants.last.orders.length
+                delivery_times.push(restaurants.last.orders.last.delivery_time)
+                restaurants.last.avg_delivery_time = (delivery_times.reduce(0, :+) / restaurants.last.total_deliveries)
             elsif result["restaurant_id"] != current_restaurant_id
                 current_restaurant_id = result["restaurant_id"]
+                delivery_times = []
                 restaurant = Restaurant.new({
                     "id" => result["id"],
                     "name" => result["name"],
                     "avg_PU_DO_time" => nil,
                     "percent_under_45" => nil,
                     "avg_delivery_time" => nil,
-                    "total_deliveries" => total_deliveries,
+                    "total_deliveries" => nil,
                     "orders" => []
                 })
                 restaurant.orders.push(
@@ -158,9 +161,21 @@ class Restaurant
                     })
                 )
                 restaurant.total_deliveries = restaurant.orders.length
+                restaurant.orders.each do |order|
+                    delivery_times.push(order.delivery_time)
+                    restaurant.avg_delivery_time = (delivery_times.reduce(0, :+) / restaurant.total_deliveries)
+                end
                 restaurants.push(restaurant)
             end
+
         end
+        # # prints each order once (9 orders)
+        # restaurants.each do |rest|
+        #     p rest.total_deliveries
+        #     rest.orders.each do |order|
+        #         p order
+        #     end
+        # end
         return restaurants
     end
 
