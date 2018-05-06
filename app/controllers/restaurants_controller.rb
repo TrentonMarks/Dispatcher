@@ -7,12 +7,12 @@ class RestaurantsController < ApplicationController
         render json: Restaurant.restaurantsDay
     end
     # all stats by week
-    # def weekIndex
-    #     render json: Restaurant.weekIndex
-    # end
+    def weekIndex
+        render json: Restaurant.restaurantsWeek
+    end
     # all stats by month
-    # def monthIndex
-    #     render json: Restaurant.monthIndex
-    # end
+    def monthIndex
+        render json: Restaurant.restaurantsMonth
+    end
 
 end

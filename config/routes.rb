@@ -55,9 +55,9 @@ Rails.application.routes.draw do
     # stats by day
     get '/statistics/restaurants/day', to: 'restaurants#dayIndex'
     # stats by week
-    # get '/statistics/restaurants/week', to: 'restaurants#weekIndex'
+    get '/statistics/restaurants/week', to: 'restaurants#weekIndex'
     # stats by month
-    # get '/statistics/restaurants/month', to: 'restaurants#monthIndex'
+    get '/statistics/restaurants/month', to: 'restaurants#monthIndex'
 
     # =================================================
     #             ROUTES FOR DRIVERS MODEL
