@@ -1,6 +1,6 @@
 class Order
 
-    attr_accessor :delivery_time_mins, :restaurant_id, :pu_do_time, :under_45
+    attr_accessor :delivery_time_mins, :restaurant_id, :pu_do_time, :under_45, :submitted_tip
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -46,7 +46,7 @@ class Order
         @driver_latitude_at_dropoff = opts["driver_latitude_at_dropoff"]
         @driver_longitude_at_dropoff = opts["driver_longitude_at_dropoff"]
         @receipt_image = opts["receipt_image"]
-        @submitted_tip = opts["submitted_tip"]
+        @submitted_tip = opts["submitted_tip"].to_i
         @receipt_approved = opts["receipt_approved"]
         @retake_receipt = opts["retake_receipt"]
         @receipt_approved_by_restaurant = opts["receipt_approved_by_restaurant"]

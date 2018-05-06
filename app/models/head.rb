@@ -35,6 +35,7 @@ class Head
             SQL
         )
         restaurants = []
+        tips = []
         current_restaurant_id = nil
         results.each do |result|
             if result["restaurant_id"] === current_restaurant_id
@@ -95,9 +96,14 @@ class Head
                 restaurants.last.total_deliveries = restaurants.last.orders.length
                 # sets delivery_fees
                 restaurants.last.delivery_fees = restaurants.last.total_deliveries * 2.99
+                # sets tips_collected
+                tips.push(restaurants.last.orders.last.submitted_tip)
+                restaurants.last.tips_collected = (tips.reduce(0, :+))
+
             elsif result["restaurant_id"] != current_restaurant_id
                 current_restaurant_id = result["restaurant_id"]
                 delivery_times = []
+                tips = []
                 restaurant = Head.new({
                     "id" => result["id"],
                     "name" => result["name"],
@@ -166,6 +172,12 @@ class Head
 
                 # sets delivery_fees
                 restaurant.delivery_fees = restaurant.total_deliveries * 2.99
+
+                # sets tips_collected
+                restaurant.orders.each do |order|
+                    tips.push(order.submitted_tip)
+                    restaurant.tips_collected = (tips.reduce(0, :+))
+                end
 
                 restaurants.push(restaurant)
             end
