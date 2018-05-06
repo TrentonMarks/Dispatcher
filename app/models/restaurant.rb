@@ -1,7 +1,7 @@
 class Restaurant
 
     # attribute readers for instance access
-    attr_accessor :orders, :total_deliveries, :avg_pu_do_time, :avg_delivery_time, :percent_under_45, :restaurant_id
+    attr_accessor :orders, :total_deliveries, :avg_pu_do_time_mins, :avg_delivery_time_mins, :percent_under_45_mins, :restaurant_id
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -10,9 +10,9 @@ class Restaurant
     def initialize opts
         @id = opts["id"].to_i
         @name = opts["name"]
-        @avg_pu_do_time = opts["avg_pu_do_time"]
-        @percent_under_45 = opts["percent_under_45"]
-        @avg_delivery_time = opts["avg_delivery_time"]
+        @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"]
+        @percent_under_45_mins = opts["percent_under_45_mins"]
+        @avg_delivery_time_mins = opts["avg_delivery_time_mins"]
         @total_deliveries = opts["total_deliveries"]
         @orders = opts["orders"]
     end
@@ -41,6 +41,7 @@ class Restaurant
         restaurants = []
         delivery_times = []
         pu_do_times = []
+        under_45s = []
         current_restaurant_id = nil
         results.each do |result|
             if result["restaurant_id"] === current_restaurant_id
@@ -92,7 +93,7 @@ class Restaurant
                             "retake_receipt_by_restaurant" => result["retake_receipt_by_restaurant"],
                             "no_tip" => result["no_tip"],
                             "cash_tip" => result["cash_tip"],
-                            "delivery_time" => result["delivery_time"],
+                            "delivery_time_mins" => result["delivery_time_mins"],
                             "PU_DO_time" => result["PU_DO_time"],
                             "under_45" => result["under_45"]
                     })
@@ -100,24 +101,29 @@ class Restaurant
                 # sets total_deliveries
                 restaurants.last.total_deliveries = restaurants.last.orders.length
 
-                # sets avg_delivery_time
-                delivery_times.push(restaurants.last.orders.last.delivery_time)
-                restaurants.last.avg_delivery_time = (delivery_times.reduce(0, :+) / restaurants.last.total_deliveries)
+                # sets avg_delivery_time_mins
+                delivery_times.push(restaurants.last.orders.last.delivery_time_mins)
+                restaurants.last.avg_delivery_time_mins = (delivery_times.reduce(0, :+) / restaurants.last.total_deliveries)
 
-                # sets avg_pu_do_time
+                # sets avg_pu_do_time_mins
                 pu_do_times.push(restaurants.last.orders.last.pu_do_time)
-                restaurants.last.avg_pu_do_time = (pu_do_times.reduce(0, :+) / restaurants.last.total_deliveries)
+                restaurants.last.avg_pu_do_time_mins = (pu_do_times.reduce(0, :+) / restaurants.last.total_deliveries)
+
+                # sets percent_under_45_mins
+                restaurants.last.orders.last.under_45 === true ? under_45s.push(1.0) : under_45s.push(0)
+                restaurants.last.percent_under_45_mins = (under_45s.reduce(0, :+) / restaurants.last.total_deliveries)
 
             elsif result["restaurant_id"] != current_restaurant_id
                 current_restaurant_id = result["restaurant_id"]
                 delivery_times = []
                 pu_do_times = []
+                under_45s = []
                 restaurant = Restaurant.new({
                     "id" => result["id"],
                     "name" => result["name"],
-                    "avg_pu_do_time" => nil,
-                    "percent_under_45" => nil,
-                    "avg_delivery_time" => nil,
+                    "avg_pu_do_time_mins" => nil,
+                    "percent_under_45_mins" => nil,
+                    "avg_delivery_time_mins" => nil,
                     "total_deliveries" => nil,
                     "orders" => []
                 })
@@ -169,7 +175,7 @@ class Restaurant
                                 "retake_receipt_by_restaurant" => result["retake_receipt_by_restaurant"],
                                 "no_tip" => result["no_tip"],
                                 "cash_tip" => result["cash_tip"],
-                                "delivery_time" => result["delivery_time"],
+                                "delivery_time_mins" => result["delivery_time_mins"],
                                 "pu_do_time" => result["pu_do_time"],
                                 "under_45" => result["under_45"]
                     })
@@ -177,16 +183,23 @@ class Restaurant
                 # sets total_deliveries
                 restaurant.total_deliveries = restaurant.orders.length
 
-                # sets avg_delivery_time
+                # sets avg_delivery_time_mins
                 restaurant.orders.each do |order|
-                    delivery_times.push(order.delivery_time)
-                    restaurant.avg_delivery_time = (delivery_times.reduce(0, :+) / restaurant.total_deliveries)
+                    delivery_times.push(order.delivery_time_mins)
+                    restaurant.avg_delivery_time_mins = (delivery_times.reduce(0, :+) / restaurant.total_deliveries)
                 end
 
-                # sets avg_pu_do_time
+                # sets avg_pu_do_time_mins
                 restaurant.orders.each do |order|
                     pu_do_times.push(order.pu_do_time)
-                    restaurant.avg_pu_do_time = (pu_do_times.reduce(0, :+) / restaurant.total_deliveries)
+                    restaurant.avg_pu_do_time_mins = (pu_do_times.reduce(0, :+) / restaurant.total_deliveries)
+                end
+
+                # sets percent_under_45_mins (failing)
+                # under_45_count = 0
+                restaurant.orders.each do |order|
+                    order.under_45 === true ? under_45s.push(1.0) : under_45s.push(0)
+                    restaurant.percent_under_45_mins = (under_45s.reduce(0, :+) / restaurant.total_deliveries)
                 end
 
                 restaurants.push(restaurant)
