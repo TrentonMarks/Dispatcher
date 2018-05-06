@@ -72,7 +72,7 @@ Rails.application.routes.draw do
     #             ROUTES FOR HEAD MODEL
     # =================================================
     # stats by day
-    # get '/statistics/head/day', to: 'head#dayIndex'
+    get '/statistics/head/day', to: 'head#dayIndex'
     # stats by week
     # get '/statistics/head/week', to: 'head#weekIndex'
     # stats by month

@@ -34,8 +34,8 @@ class Restaurant
                     ON orders.restaurant_id = restaurants.id
                 LEFT JOIN drivers
                     ON orders.driver_id = drivers.id
-                WHERE orders.dropoff_at >= '05-01-18'
-                    AND orders.dropoff_at <= '05-03-18'
+                WHERE orders.dropoff_at > '05-01-18'
+                    AND orders.dropoff_at < '05-03-18'
             SQL
         )
         restaurants = []
@@ -224,8 +224,8 @@ class Restaurant
                     ON orders.restaurant_id = restaurants.id
                 LEFT JOIN drivers
                     ON orders.driver_id = drivers.id
-                WHERE orders.dropoff_at >= '04-30-18'
-                    AND orders.dropoff_at <= '05-06-18'
+                WHERE orders.dropoff_at > '04-30-18'
+                    AND orders.dropoff_at < '05-06-18'
             SQL
         )
         restaurants = []
@@ -404,7 +404,7 @@ class Restaurant
             <<-SQL
                 SELECT  orders.*,
                         orders.id AS order_id,
-                        restaurants.id,
+                        restaurants.id AS restaurants_id,
                         restaurants.name,
                         drivers.id AS drivers_id,
                         drivers.first_name,
@@ -414,8 +414,8 @@ class Restaurant
                     ON orders.restaurant_id = restaurants.id
                 LEFT JOIN drivers
                     ON orders.driver_id = drivers.id
-                WHERE orders.dropoff_at >= '05-01-18'
-                    AND orders.dropoff_at <= '05-31-18'
+                WHERE orders.dropoff_at > '05-01-18'
+                    AND orders.dropoff_at < '05-31-18'
             SQL
         )
         restaurants = []
