@@ -105,6 +105,9 @@ class Head
                 sales.push(restaurants.last.orders.last.order_subtotal)
                 restaurants.last.ten_percent_of_sales = (sales.reduce(0, :+) / 10.00)
 
+                # sets owed_by_restaurant
+                restaurants.last.owed_by_restaurant = (restaurants.last.delivery_fees + restaurants.last.tips_collected + restaurants.last.ten_percent_of_sales)
+
             elsif result["restaurant_id"] != current_restaurant_id
                 current_restaurant_id = result["restaurant_id"]
                 delivery_times = []
@@ -190,6 +193,9 @@ class Head
                     sales.push(order.order_subtotal)
                     restaurant.ten_percent_of_sales = (sales.reduce(0, :+) / 10.00)
                 end
+
+                # sets owed_by_restaurant
+                restaurant.owed_by_restaurant = (restaurant.delivery_fees + restaurant.tips_collected + restaurant.ten_percent_of_sales)
 
                 restaurants.push(restaurant)
             end
