@@ -7,12 +7,12 @@ class HeadController < ApplicationController
         render json: Head.headDay
     end
     # all stats by week
-    # def weekIndex
-    #     render json: Restaurant.restaurantsWeek
-    # end
+    def weekIndex
+        render json: Head.headWeek
+    end
     # all stats by month
-    # def monthIndex
-    #     render json: Restaurant.restaurantsMonth
-    # end
+    def monthIndex
+        render json: Head.headMonth
+    end
 
 end

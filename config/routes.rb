@@ -74,8 +74,8 @@ Rails.application.routes.draw do
     # stats by day
     get '/statistics/head/day', to: 'head#dayIndex'
     # stats by week
-    # get '/statistics/head/week', to: 'head#weekIndex'
+    get '/statistics/head/week', to: 'head#weekIndex'
     # stats by month
-    # get '/statistics/head/month', to: 'head#monthIndex'
+    get '/statistics/head/month', to: 'head#monthIndex'
 
 end
