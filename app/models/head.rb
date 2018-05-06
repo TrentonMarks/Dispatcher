@@ -1,7 +1,7 @@
 class Head
 
     # attribute readers for instance access
-    attr_accessor :orders, :restaurant_id, :total_deliveries, :delilvery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant
+    attr_accessor :orders, :restaurant_id, :total_deliveries, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -11,7 +11,7 @@ class Head
         @id = opts["id"].to_i
         @name = opts["name"]
         @total_deliveries = opts["total_deliveries"]
-        @delilvery_fees = opts["delilvery_fees"]
+        @delivery_fees = opts["delilvery_fees"]
         @tips_collected = opts["tips_collected"]
         @ten_percent_of_sales = opts["ten_percent_of_sales"]
         @owed_by_restaurant = opts["owed_by_restaurant"]
@@ -93,6 +93,8 @@ class Head
                 )
                 # sets total_deliveries
                 restaurants.last.total_deliveries = restaurants.last.orders.length
+                # sets delivery_fees
+                restaurants.last.delivery_fees = restaurants.last.total_deliveries * 2.99
             elsif result["restaurant_id"] != current_restaurant_id
                 current_restaurant_id = result["restaurant_id"]
                 delivery_times = []
@@ -100,7 +102,7 @@ class Head
                     "id" => result["id"],
                     "name" => result["name"],
                     "total_deliveries" => nil,
-                    "delilvery_fees" => nil,
+                    "delivery_fees" => nil,
                     "tips_collected" => nil,
                     "ten_percent_of_sales" => nil,
                     "owed_by_restaurant" => nil,
@@ -161,6 +163,9 @@ class Head
                 )
                 # sets total_deliveries
                 restaurant.total_deliveries = restaurant.orders.length
+
+                # sets delivery_fees
+                restaurant.delivery_fees = restaurant.total_deliveries * 2.99
 
                 restaurants.push(restaurant)
             end
