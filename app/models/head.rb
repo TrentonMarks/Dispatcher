@@ -36,6 +36,7 @@ class Head
         )
         restaurants = []
         tips = []
+        sales = []
         current_restaurant_id = nil
         results.each do |result|
             if result["restaurant_id"] === current_restaurant_id
@@ -100,10 +101,15 @@ class Head
                 tips.push(restaurants.last.orders.last.submitted_tip)
                 restaurants.last.tips_collected = (tips.reduce(0, :+))
 
+                # sets ten_percent_of_sales
+                sales.push(restaurants.last.orders.last.order_subtotal)
+                restaurants.last.ten_percent_of_sales = (sales.reduce(0, :+) / 10.00)
+
             elsif result["restaurant_id"] != current_restaurant_id
                 current_restaurant_id = result["restaurant_id"]
                 delivery_times = []
                 tips = []
+                sales = []
                 restaurant = Head.new({
                     "id" => result["id"],
                     "name" => result["name"],
@@ -177,6 +183,12 @@ class Head
                 restaurant.orders.each do |order|
                     tips.push(order.submitted_tip)
                     restaurant.tips_collected = (tips.reduce(0, :+))
+                end
+
+                # sets ten_percent_of_sales
+                restaurant.orders.each do |order|
+                    sales.push(order.order_subtotal)
+                    restaurant.ten_percent_of_sales = (sales.reduce(0, :+) / 10.00)
                 end
 
                 restaurants.push(restaurant)

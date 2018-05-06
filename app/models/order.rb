@@ -1,6 +1,6 @@
 class Order
 
-    attr_accessor :delivery_time_mins, :restaurant_id, :pu_do_time, :under_45, :submitted_tip
+    attr_accessor :delivery_time_mins, :restaurant_id, :pu_do_time, :under_45, :submitted_tip, :order_subtotal
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -20,7 +20,7 @@ class Order
         @customer_zip = opts["customer_zip"]
         @customer_latitude = opts["customer_latitude"]
         @customer_longitude = opts["customer_longitude"]
-        @order_subtotal = opts["order_subtotal"]
+        @order_subtotal = opts["order_subtotal"].to_i
         @payment_type = opts["payment_type"]
         @tip_type = opts["tip_type"]
         @selected_rbt = opts["selected_rbt"]
