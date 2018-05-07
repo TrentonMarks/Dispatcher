@@ -1,7 +1,7 @@
 class Driver
 
     # attribute readers for instance access
-    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected, :total_time_worked, :hourly_wage_at_17hr, :est_cash_tips_collected
+    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected, :total_time_worked, :hourly_wage_at_17hr, :est_cash_tips_collected, :avg_del_per_hour, :supplement
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -16,10 +16,10 @@ class Driver
         @total_time_worked = opts["total_time_worked"]
         @avg_del_per_hour = opts["avg_del_per_hour"]
         @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"]
-        @hourly_wage_at_17hr = opts["hourly_wage_at_17hr"]
-        @actual_tips_collected = opts["actual_tips_collected"]
-        @est_cash_tips_collected = opts["est_cash_tips_collected"]
-        @supplement = opts["supplement"]
+        @hourly_wage_at_17hr = opts["hourly_wage_at_17hr"].to_i
+        @actual_tips_collected = opts["actual_tips_collected"].to_i
+        @est_cash_tips_collected = opts["est_cash_tips_collected"].to_i
+        @supplement = opts["supplement"].to_i
         @orders = opts["orders"]
         @shifts = opts["shifts"]
     end
@@ -121,6 +121,8 @@ class Driver
                     cash_tips.push(1.00)
                     drivers.last.est_cash_tips_collected = cash_tips.reduce(0, :+) * 5
                 end
+                # sets supplement
+                drivers.last.supplement = drivers.last.hourly_wage_at_17hr - (drivers.last.actual_tips_collected + drivers.last.est_cash_tips_collected)
 
             elsif result["driver_id"] != current_driver_id
                 current_driver_id = result["driver_id"]
@@ -215,6 +217,8 @@ class Driver
                         driver.est_cash_tips_collected = cash_tips.reduce(0, :+) * 5
                     end
                 end
+                # sets supplement
+                driver.supplement = driver.hourly_wage_at_17hr - (driver.actual_tips_collected + driver.est_cash_tips_collected)
 
                 drivers.push(driver)
             end
@@ -232,7 +236,6 @@ class Driver
                     })
                 )
                 # sets total_shifts
-
                 drivers.last.total_shifts = drivers.last.shifts.length
                 # sets total_time_worked
                 driver.shifts.each do |shift|
@@ -241,7 +244,6 @@ class Driver
                 end
                 # sets hourly_wage_at_17hr
                 drivers.last.hourly_wage_at_17hr = drivers.last.total_time_worked * 17
-
             end
         end
         return drivers
