@@ -1,7 +1,7 @@
 class Driver
 
     # attribute readers for instance access
-    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected, :total_time_worked
+    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected, :total_time_worked, :hourly_wage_at_17hr
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -16,7 +16,7 @@ class Driver
         @total_time_worked = opts["total_time_worked"]
         @avg_del_per_hour = opts["avg_del_per_hour"]
         @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"]
-        @hourly_wage_at_15hr = opts["hourly_wage_at_15hr"]
+        @hourly_wage_at_17hr = opts["hourly_wage_at_17hr"]
         @actual_tips_collected = opts["actual_tips_collected"]
         @est_cash_tips_collected = opts["est_cash_tips_collected"]
         @supplement = opts["supplement"]
@@ -127,7 +127,7 @@ class Driver
                     "total_deliveries" => result["total_deliveries"],
                     "avg_del_per_hour" => result["avg_del_per_hour"],
                     "avg_pu_do_time_mins" => result["avg_pu_do_time_mins"],
-                    "hourly_wage_at_15hr" => result["hourly_wage_at_15hr"],
+                    "hourly_wage_at_17hr" => result["hourly_wage_at_17hr"],
                     "actual_tips_collected" => result["actual_tips_collected"],
                     "est_cash_tips_collected" => result["est_cash_tips_collected"],
                     "supplement" => result["supplement"],
@@ -221,11 +221,13 @@ class Driver
                 # sets total_shifts
 
                 drivers.last.total_shifts = drivers.last.shifts.length
-                #sets total_time_worked
+                # sets total_time_worked
                 driver.shifts.each do |shift|
                     time_worked.push(shift.total_shift_time_in_min)
                     driver.total_time_worked = time_worked.reduce(0, :+) / 60
                 end
+                # sets hourly_wage_at_17hr
+                drivers.last.hourly_wage_at_17hr = drivers.last.total_time_worked * 17
 
             end
         end
