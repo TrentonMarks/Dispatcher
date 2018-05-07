@@ -12,6 +12,7 @@ class Order
         @assigned_at = opts["assigned_at"]
         @restaurant_id = opts["restaurant_id"]
         @driver_id = opts["driver_id"]
+        @shift_id = opts["shift_id"]
         @customer_phone = opts["customer_phone"]
         @customer_location_type = opts["customer_location_type"]
         @customer_address = opts["customer_address"]
