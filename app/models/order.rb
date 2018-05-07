@@ -7,7 +7,7 @@ class Order
 
     # initialize options hash
     def initialize opts
-        @id = opts["id"].to_i
+        @id = opts["id"].to_f
         @ordered_at = opts["ordered_at"]
         @assigned_at = opts["assigned_at"]
         @restaurant_id = opts["restaurant_id"]
@@ -21,7 +21,7 @@ class Order
         @customer_zip = opts["customer_zip"]
         @customer_latitude = opts["customer_latitude"]
         @customer_longitude = opts["customer_longitude"]
-        @order_subtotal = opts["order_subtotal"].to_i
+        @order_subtotal = opts["order_subtotal"].to_f
         @payment_type = opts["payment_type"]
         @tip_type = opts["tip_type"]
         @selected_rbt = opts["selected_rbt"]
@@ -47,7 +47,7 @@ class Order
         @driver_latitude_at_dropoff = opts["driver_latitude_at_dropoff"]
         @driver_longitude_at_dropoff = opts["driver_longitude_at_dropoff"]
         @receipt_image = opts["receipt_image"]
-        @submitted_tip = opts["submitted_tip"].to_i
+        @submitted_tip = opts["submitted_tip"].to_f
         @receipt_approved = opts["receipt_approved"]
         @retake_receipt = opts["retake_receipt"]
         @receipt_approved_by_restaurant = opts["receipt_approved_by_restaurant"]

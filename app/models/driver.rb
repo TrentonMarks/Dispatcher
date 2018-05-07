@@ -8,18 +8,18 @@ class Driver
 
     # initialize options hash
     def initialize opts
-        @id = opts["id"].to_i
+        @id = opts["id"].to_f
         @first_name = opts["first_name"]
         @last_name = opts["last_name"]
-        @total_deliveries = opts["total_deliveries"]
-        @total_shifts = opts["total_shifts"]
-        @total_time_worked = opts["total_time_worked"]
-        @avg_del_per_hour = opts["avg_del_per_hour"]
-        @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"]
-        @hourly_wage_at_17hr = opts["hourly_wage_at_17hr"].to_i
-        @actual_tips_collected = opts["actual_tips_collected"].to_i
-        @est_cash_tips_collected = opts["est_cash_tips_collected"].to_i
-        @supplement = opts["supplement"].to_i
+        @total_deliveries = opts["total_deliveries"].to_f
+        @total_shifts = opts["total_shifts"].to_f
+        @total_time_worked = opts["total_time_worked"].to_f
+        @avg_del_per_hour = opts["avg_del_per_hour"].to_f
+        @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"].to_f
+        @hourly_wage_at_17hr = opts["hourly_wage_at_17hr"].to_f
+        @actual_tips_collected = opts["actual_tips_collected"].to_f
+        @est_cash_tips_collected = opts["est_cash_tips_collected"].to_f
+        @supplement = opts["supplement"].to_f
         @orders = opts["orders"]
         @shifts = opts["shifts"]
     end
@@ -108,8 +108,6 @@ class Driver
                 )
                 # sets total_deliveries
                 drivers.last.total_deliveries = drivers.last.orders.length
-                # sets avg_del_per_hour
-
                 # sets avg_pu_do_time_mins
                 pu_do_times.push(drivers.last.orders.last.pu_do_time)
                 drivers.last.avg_pu_do_time_mins = (pu_do_times.reduce(0, :+) / drivers.last.total_deliveries)
@@ -123,7 +121,8 @@ class Driver
                 end
                 # sets supplement
                 drivers.last.supplement = drivers.last.hourly_wage_at_17hr - (drivers.last.actual_tips_collected + drivers.last.est_cash_tips_collected)
-
+                # sets avg_del_per_hour
+                drivers.last.avg_del_per_hour = drivers.last.total_deliveries / drivers.last.total_time_worked
             elsif result["driver_id"] != current_driver_id
                 current_driver_id = result["driver_id"]
                 pu_do_times = []
@@ -198,8 +197,6 @@ class Driver
                 )
                 # sets total_deliveries
                 driver.total_deliveries = driver.orders.length
-                # sets avg_del_per_hour
-
                 # sets avg_pu_do_time_mins
                 driver.orders.each do |order|
                     pu_do_times.push(order.pu_do_time)
@@ -219,6 +216,8 @@ class Driver
                 end
                 # sets supplement
                 driver.supplement = driver.hourly_wage_at_17hr - (driver.actual_tips_collected + driver.est_cash_tips_collected)
+                # sets avg_del_per_hour
+                driver.avg_del_per_hour = (driver.total_deliveries / driver.total_time_worked)
 
                 drivers.push(driver)
             end
