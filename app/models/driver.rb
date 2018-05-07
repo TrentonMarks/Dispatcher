@@ -1,7 +1,7 @@
 class Driver
 
     # attribute readers for instance access
-    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant
+    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -11,6 +11,8 @@ class Driver
         @id = opts["id"].to_i
         @first_name = opts["first_name"]
         @last_name = opts["last_name"]
+        @total_deliveries = opts["total_deliveries"]
+        @total_shifts = opts["total_shifts"]
         @avg_del_per_hour = opts["avg_del_per_hour"]
         @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"]
         @hourly_wage_at_15hr = opts["hourly_wage_at_15hr"]
@@ -100,12 +102,16 @@ class Driver
                         "under_45" => result["under_45"]
                         })
                 )
+                # sets total_deliveries
+                drivers.last.total_deliveries = drivers.last.orders.length
+
             elsif result["driver_id"] != current_driver_id
                 current_driver_id = result["driver_id"]
                 driver = Driver.new({
                     "id" => result["id"],
                     "first_name" => result["first_name"],
                     "last_name" => result["last_name"],
+                    "total_deliveries" => result["total_deliveries"],
                     "avg_del_per_hour" => result["avg_del_per_hour"],
                     "avg_pu_do_time_mins" => result["avg_pu_do_time_mins"],
                     "hourly_wage_at_15hr" => result["hourly_wage_at_15hr"],
@@ -168,6 +174,9 @@ class Driver
                         "under_45" => result["under_45"]
                     })
                 )
+                # sets total_deliveries
+                driver.total_deliveries = driver.orders.length
+
                 drivers.push(driver)
             end
 
@@ -182,6 +191,9 @@ class Driver
                         "total_shift_time_in_min" => result["total_shift_time_in_min"]
                     })
                 )
+                # sets total_shifts
+                drivers.last.total_shifts = drivers.last.shifts.length
+
             end
         end
         return drivers
