@@ -1,7 +1,7 @@
 class Driver
 
     # attribute readers for instance access
-    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected
+    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected, :total_time_worked
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -13,6 +13,7 @@ class Driver
         @last_name = opts["last_name"]
         @total_deliveries = opts["total_deliveries"]
         @total_shifts = opts["total_shifts"]
+        @total_time_worked = opts["total_time_worked"]
         @avg_del_per_hour = opts["avg_del_per_hour"]
         @avg_pu_do_time_mins = opts["avg_pu_do_time_mins"]
         @hourly_wage_at_15hr = opts["hourly_wage_at_15hr"]
@@ -207,6 +208,7 @@ class Driver
 
             if result["shift_id"] != current_shift_id
                 current_shift_id = result["shift_id"]
+                time_worked = []
                 drivers.last.shifts.push(
                     Shift.new({
                         "id" => result["shifts_id"],
@@ -217,7 +219,13 @@ class Driver
                     })
                 )
                 # sets total_shifts
+
                 drivers.last.total_shifts = drivers.last.shifts.length
+                #sets total_time_worked
+                driver.shifts.each do |shift|
+                    time_worked.push(shift.total_shift_time_in_min)
+                    driver.total_time_worked = time_worked.reduce(0, :+) / 60
+                end
 
             end
         end
