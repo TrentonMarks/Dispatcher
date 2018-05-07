@@ -1,7 +1,7 @@
 class Driver
 
     # attribute readers for instance access
-    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins
+    attr_accessor :orders, :shifts, :restaurant_id, :total_deliveries, :total_shifts, :delivery_fees, :tips_collected, :ten_percent_of_sales, :owed_by_restaurant, :avg_pu_do_time_mins, :actual_tips_collected
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
@@ -46,6 +46,7 @@ class Driver
         drivers = []
         shifts = []
         pu_do_times = []
+        actual_tips = []
         current_driver_id = nil
         current_shift_id = nil
         results.each do |result|
@@ -110,10 +111,14 @@ class Driver
                 # sets avg_pu_do_time_mins
                 pu_do_times.push(drivers.last.orders.last.pu_do_time)
                 drivers.last.avg_pu_do_time_mins = (pu_do_times.reduce(0, :+) / drivers.last.total_deliveries)
+                # sets actual_tips_collected
+                actual_tips.push(drivers.last.orders.last.submitted_tip)
+                drivers.last.actual_tips_collected = actual_tips.reduce(0, :+)
 
             elsif result["driver_id"] != current_driver_id
                 current_driver_id = result["driver_id"]
                 pu_do_times = []
+                actual_tips = []
                 driver = Driver.new({
                     "id" => result["id"],
                     "first_name" => result["first_name"],
@@ -191,7 +196,10 @@ class Driver
                     driver.avg_pu_do_time_mins = (pu_do_times.reduce(0, :+) / driver.total_deliveries)
                 end
                 # sets actual_tips_collected
-
+                driver.orders.each do |order|
+                    actual_tips.push(order.submitted_tip)
+                    driver.actual_tips_collected = actual_tips.reduce(0, :+)
+                end
                 # sets est_cash_tips_collected
 
                 drivers.push(driver)
