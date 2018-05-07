@@ -1,26 +1,482 @@
 ////// STATISTICS TAB ////////
+// Nav Bar for Restaurant Statistics
 class RestaurantsNav extends React.Component{
-    render(){
-        return  <div>
-                    <h3>Restaurants Nav!</h3>
-                </div>
+    constructor(props){
+        super(props)
+        this.changeState = this.changeState.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.getDay = this.getDay.bind(this)
+        this.getWeek = this.getWeek.bind(this)
+        this.getMonth = this.getMonth.bind(this)
+        this.state = {
+            showingDay: true,
+            showingWeek: false,
+            showingMonth: false,
+            allDay: [],
+            allWeek: [],
+            allMonth: [],
+            day: {},
+            week: {},
+            month: {}
+        }
     }
-}
-class DriversNav extends React.Component{
-    render(){
-        return  <div>
-                    <h3>Drivers Nav!</h3>
-                </div>
+    componentDidMount(){
+        this.getAllDay()
     }
-}
-class HeadNav extends React.Component{
-    render(){
-        return  <div>
-                    <h3>Head Nav!</h3>
-                </div>
+    changeState(st1, st2, st3){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false
+        })
     }
-}
+    handleSubmit(event){
+        event.preventDefault();
+        {this.state.showingDay ? this.getAllDay() : ''}
+        {this.state.showingWeek ? this.getAllWeek() : ''}
+        {this.state.showingMonth ? this.getAllMonth() : ''}
 
+    }
+    getDay(day){
+        this.setState({day: day})
+    }
+    getWeek(week){
+        this.setState({week: week})
+    }
+    getMonth(month){
+        this.setState({month: month})
+    }
+    getAllDay(){
+        fetch('/statistics/restaurants/day')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allDay: data
+                })
+            }).catch(error => console.log(error))
+    }
+    getAllWeek(){
+        fetch('/statistics/restaurants/week')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allWeek: data
+                })
+            }).catch(error => console.log(error))
+    }
+    getAllMonth(){
+        fetch('/statistics/restaurants/month')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allMonth: data
+                })
+            }).catch(error => console.log(error))
+    }
+    render(){
+        return  <div>
+
+                    <form onSubmit={this.handleSubmit}>
+
+                        <button onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+
+                        <button onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+
+                        <button onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+
+                    </form>
+
+                    <RestaurantsTable
+                        state = {this.state}
+                        changeState = {this.changeState}
+                    />
+
+                </div>
+    }
+}
+// Data Table for Restaurants Tab
+class RestaurantsTable extends React.Component{
+    render(){
+        return  <table>
+                    <tbody>
+
+                        {this.props.state.showingDay ?
+                            this.props.state.allDay.map((day, index)=>{
+                                return  <div>
+                                            <h3>Day</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Restaurant: <em>{day.name}</em></p>
+                                                    <p>Avg PU to DO Time: <em>{day.avg_pu_do_time_mins}</em></p>
+                                                    <p>Percent Under 45 mins: <em>{day.percent_under_45_mins}</em></p>
+                                                    <p>Avg Delivery Time: <em>{day.avg_delivery_time_mins}</em></p>
+                                                    <p>Total Deliveries: <em>{day.total_deliveries}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {this.props.state.showingWeek ?
+                            this.props.state.allWeek.map((week, index)=>{
+                                return  <div>
+                                            <h3>Week</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Restaurant: <em>{week.name}</em></p>
+                                                    <p>Avg PU to DO Time: <em>{week.avg_pu_do_time_mins}</em></p>
+                                                    <p>Percent Under 45 mins: <em>{week.percent_under_45_mins}</em></p>
+                                                    <p>Avg Delivery Time: <em>{week.avg_delivery_time_mins}</em></p>
+                                                    <p>Total Deliveries: <em>{week.total_deliveries}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {this.props.state.showingMonth ?
+                            this.props.state.allMonth.map((month, index)=>{
+                                return  <div>
+                                            <h3>Month</h3>
+                                            <tr>
+                                                <td>
+                                                    <p>Restaurant: <em>{month.name}</em></p>
+                                                    <p>Avg PU to DO Time: <em>{month.avg_pu_do_time_mins}</em></p>
+                                                    <p>Percent Under 45 mins: <em>{month.percent_under_45_mins}</em></p>
+                                                    <p>Avg Delivery Time: <em>{month.avg_delivery_time_mins}</em></p>
+                                                    <p>Total Deliveries: <em>{month.total_deliveries}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                    </tbody>
+                </table>
+    }
+}
+// Nav Bar for Drivers Statistics
+class DriversNav extends React.Component{
+    constructor(props){
+        super(props)
+        this.changeState = this.changeState.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.getDay = this.getDay.bind(this)
+        this.getWeek = this.getWeek.bind(this)
+        this.getMonth = this.getMonth.bind(this)
+        this.state = {
+            showingDay: true,
+            showingWeek: false,
+            showingMonth: false,
+            allDay: [],
+            allWeek: [],
+            allMonth: [],
+            day: {},
+            week: {},
+            month: {}
+        }
+    }
+    componentDidMount(){
+        this.getAllDay()
+    }
+    changeState(st1, st2, st3){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false
+        })
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        {this.state.showingDay ? this.getAllDay() : ''}
+        {this.state.showingWeek ? this.getAllWeek() : ''}
+        {this.state.showingMonth ? this.getAllMonth() : ''}
+
+    }
+    getDay(day){
+        this.setState({day: day})
+    }
+    getWeek(week){
+        this.setState({week: week})
+    }
+    getMonth(month){
+        this.setState({month: month})
+    }
+    getAllDay(){
+        fetch('/statistics/drivers/day')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allDay: data
+                })
+            }).catch(error => console.log(error))
+    }
+    getAllWeek(){
+        fetch('/statistics/drivers/week')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allWeek: data
+                })
+            }).catch(error => console.log(error))
+    }
+    getAllMonth(){
+        fetch('/statistics/drivers/month')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allMonth: data
+                })
+            }).catch(error => console.log(error))
+    }
+    render(){
+        return  <div>
+
+                    <form onSubmit={this.handleSubmit}>
+
+                        <button onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+
+                        <button onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+
+                        <button onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+
+                    </form>
+
+                    <DriversTable
+                        state = {this.state}
+                        changeState = {this.changeState}
+                    />
+
+                </div>
+    }
+}
+// Data Table for Drivers Tab
+class DriversTable extends React.Component{
+    render(){
+        return  <table>
+                    <tbody>
+
+                        {this.props.state.showingDay ?
+                            this.props.state.allDay.map((day, index)=>{
+                                return  <div>
+                                            <h3>Day</h3>
+                                            <tr>
+                                                <td>
+                                                    <p> Name: <em>{day.first_name} {day.last_name}</em></p>
+                                                    <p>Total Deliveries: <em>{day.total_deliveries}</em></p>
+                                                    <p>Total Shifts: <em>{day.total_shifts}</em></p>
+                                                    <p>Total Time Worked: <em>{day.total_time_worked}</em></p>
+                                                    <p>Avg Delivery Per Hour: <em>{day.avg_del_per_hour}</em></p>
+                                                    <p>Avg PU DO Time: <em>{day.avg_pu_do_time_mins}</em></p>
+                                                    <p>Hourly Wage at $17/hr: <em>{day.hourly_wage_at_17hr}</em></p>
+                                                    <p>Actual Tips: <em>{day.actual_tips_collected}</em></p>
+                                                    <p>Estimated Cash Tips: <em>{day.est_cash_tips_collected}</em></p>
+                                                    <p>Supplement: <em>{day.supplement}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {this.props.state.showingWeek ?
+                            this.props.state.allWeek.map((week, index)=>{
+                                return  <div>
+                                            <h3>Week</h3>
+                                            <tr>
+                                                <td>
+                                                    <p> Name: <em>{week.first_name} {week.last_name}</em></p>
+                                                    <p>Total Deliveries: <em>{week.total_deliveries}</em></p>
+                                                    <p>Total Shifts: <em>{week.total_shifts}</em></p>
+                                                    <p>Total Time Worked: <em>{week.total_time_worked}</em></p>
+                                                    <p>Avg Delivery Per Hour: <em>{week.avg_del_per_hour}</em></p>
+                                                    <p>Avg PU DO Time: <em>{week.avg_pu_do_time_mins}</em></p>
+                                                    <p>Hourly Wage at $17/hr: <em>{week.hourly_wage_at_17hr}</em></p>
+                                                    <p>Actual Tips: <em>{week.actual_tips_collected}</em></p>
+                                                    <p>Estimated Cash Tips: <em>{week.est_cash_tips_collected}</em></p>
+                                                    <p>Supplement: <em>{week.supplement}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {this.props.state.showingMonth ?
+                            this.props.state.allMonth.map((month, index)=>{
+                                return  <div>
+                                            <h3>Month</h3>
+                                            <tr>
+                                                <td>
+                                                    <p> Name: <em>{month.first_name} {month.last_name}</em></p>
+                                                    <p>Total Deliveries: <em>{month.total_deliveries}</em></p>
+                                                    <p>Total Shifts: <em>{month.total_shifts}</em></p>
+                                                    <p>Total Time Worked: <em>{month.total_time_worked}</em></p>
+                                                    <p>Avg Delivery Per Hour: <em>{month.avg_del_per_hour}</em></p>
+                                                    <p>Avg PU DO Time: <em>{month.avg_pu_do_time_mins}</em></p>
+                                                    <p>Hourly Wage at $17/hr: <em>{month.hourly_wage_at_17hr}</em></p>
+                                                    <p>Actual Tips: <em>{month.actual_tips_collected}</em></p>
+                                                    <p>Estimated Cash Tips: <em>{month.est_cash_tips_collected}</em></p>
+                                                    <p>Supplement: <em>{month.supplement}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                    </tbody>
+                </table>
+    }
+}
+// Nav Bar for Head StatisticsNav
+class HeadNav extends React.Component{
+    constructor(props){
+        super(props)
+        this.changeState = this.changeState.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.getDay = this.getDay.bind(this)
+        this.getWeek = this.getWeek.bind(this)
+        this.getMonth = this.getMonth.bind(this)
+        this.state = {
+            showingDay: true,
+            showingWeek: false,
+            showingMonth: false,
+            allDay: [],
+            allWeek: [],
+            allMonth: [],
+            day: {},
+            week: {},
+            month: {}
+        }
+    }
+    componentDidMount(){
+        this.getAllDay()
+    }
+    changeState(st1, st2, st3){
+        this.setState({
+            [st1]: true,
+            [st2]: false,
+            [st3]: false
+        })
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        {this.state.showingDay ? this.getAllDay() : ''}
+        {this.state.showingWeek ? this.getAllWeek() : ''}
+        {this.state.showingMonth ? this.getAllMonth() : ''}
+
+    }
+    getDay(day){
+        this.setState({day: day})
+    }
+    getWeek(week){
+        this.setState({week: week})
+    }
+    getMonth(month){
+        this.setState({month: month})
+    }
+    getAllDay(){
+        fetch('/statistics/head/day')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allDay: data
+                })
+            }).catch(error => console.log(error))
+    }
+    getAllWeek(){
+        fetch('/statistics/head/week')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allWeek: data
+                })
+            }).catch(error => console.log(error))
+    }
+    getAllMonth(){
+        fetch('/statistics/head/month')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    allMonth: data
+                })
+            }).catch(error => console.log(error))
+    }
+    render(){
+        return  <div>
+
+                    <form onSubmit={this.handleSubmit}>
+
+                        <button onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+
+                        <button onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+
+                        <button onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+
+                    </form>
+
+                    <HeadTable
+                        state = {this.state}
+                        changeState = {this.changeState}
+                    />
+
+                </div>
+    }
+}
+// Data Table for Head Tab
+class HeadTable extends React.Component{
+    render(){
+        return  <table>
+                    <tbody>
+
+                        {this.props.state.showingDay ?
+                            this.props.state.allDay.map((day, index)=>{
+                                return  <div>
+                                            <h3>Day</h3>
+                                            <tr>
+                                                <td>
+                                                    <p> Restaurant Name: <em>{day.name}</em></p>
+                                                    <p>Total Deliveries: <em>{day.total_deliveries}</em></p>
+                                                    <p>Delivery Fees: <em>{day.delivery_fees}</em></p>
+                                                    <p>Tips Collected: <em>{day.tips_collected}</em></p>
+                                                    <p>10% of Sales: <em>{day.ten_percent_of_sales}</em></p>
+                                                    <p>Amount Owed by Restaurant: <em>{day.owed_by_restaurant}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {this.props.state.showingWeek ?
+                            this.props.state.allWeek.map((week, index)=>{
+                                return  <div>
+                                            <h3>Week</h3>
+                                            <tr>
+                                                <td>
+                                                    <p> Restaurant Name: <em>{week.name}</em></p>
+                                                    <p>Total Deliveries: <em>{week.total_deliveries}</em></p>
+                                                    <p>Delivery Fees: <em>{week.delivery_fees}</em></p>
+                                                    <p>Tips Collected: <em>{week.tips_collected}</em></p>
+                                                    <p>10% of Sales: <em>{week.ten_percent_of_sales}</em></p>
+                                                    <p>Amount Owed by Restaurant: <em>{week.owed_by_restaurant}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+                        {this.props.state.showingMonth ?
+                            this.props.state.allMonth.map((month, index)=>{
+                                return  <div>
+                                            <h3>Month</h3>
+                                            <tr>
+                                                <td>
+                                                    <p> Restaurant Name: <em>{month.name}</em></p>
+                                                    <p>Total Deliveries: <em>{month.total_deliveries}</em></p>
+                                                    <p>Delivery Fees: <em>{month.delivery_fees}</em></p>
+                                                    <p>Tips Collected: <em>{month.tips_collected}</em></p>
+                                                    <p>10% of Sales: <em>{month.ten_percent_of_sales}</em></p>
+                                                    <p>Amount Owed by Restaurant: <em>{month.owed_by_restaurant}</em></p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                            }) : ''
+                        }
+
+                    </tbody>
+                </table>
+    }
+}
 // Restaurants/Drivers/Head Statistics Nav Bar
 class StatisticsNav extends React.Component{
     constructor(props){
@@ -73,7 +529,7 @@ class StatisticsNav extends React.Component{
 
 
 ////// RECEIPTS TAB ////////
-// Credit Card, Online, Cash Nav Bar for Unapproved Receipts
+// Nav Bar for Credit Card, Online, Cash Approved Receipts
 class AppNav extends React.Component{
     constructor(props){
         super(props)
@@ -195,7 +651,7 @@ class AppNav extends React.Component{
                 </div>
     }
 }
-// Data Tables for Approved CC, Online, and Cash Receipts
+// Data Table for Approved CC, Online, and Cash Receipts
 class AppTable extends React.Component{
     render(){
         return  <table>
@@ -292,7 +748,6 @@ class AppTable extends React.Component{
 
     }
 }
-
 // Nav Bar for Credit Card, Online, Cash, and Retake Unapproved Receipts
 class UnappNav extends React.Component{
     constructor(props){
@@ -727,7 +1182,6 @@ class EditForm extends React.Component{
                 </div>
     }
 }
-
 // Approved/Unapproved Receipts Nav Bar
 class ReceiptsNav extends React.Component{
     constructor(props){
@@ -776,7 +1230,6 @@ class OrdersNav extends React.Component{
                 </div>
     }
 }
-
 
 
 // Header Bar for Main App
@@ -852,7 +1305,8 @@ class MainNav extends React.Component{
     }
 }
 
-// Renders: ReceiptsNav
+
+// Renders: MainNav
 ReactDOM.render(
     <MainNav />,
     document.querySelector('.container')

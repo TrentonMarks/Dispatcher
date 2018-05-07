@@ -65,9 +65,9 @@ Rails.application.routes.draw do
     # stats by day
     get '/statistics/drivers/day', to: 'drivers#dayIndex'
     # stats by week
-    # get '/statistics/drivers/week', to: 'drivers#weekIndex'
+    get '/statistics/drivers/week', to: 'drivers#weekIndex'
     # stats by month
-    # get '/statistics/drivers/month', to: 'drivers#monthIndex'
+    get '/statistics/drivers/month', to: 'drivers#monthIndex'
     # =================================================
     #             ROUTES FOR HEAD MODEL
     # =================================================
