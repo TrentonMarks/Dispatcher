@@ -1,6 +1,6 @@
 class Order
 
-    attr_accessor :delivery_time_mins, :restaurant_id, :pu_do_time, :under_45, :submitted_tip, :order_subtotal
+    attr_accessor :delivery_time_mins, :restaurant_id, :pu_do_time, :under_45, :submitted_tip, :order_subtotal, :payment_type, :tip_type, :cash_tip
 
     # connect to postgres
     DB = PG.connect(host: "localhost", port: 5432, dbname: 'chop_chop')
