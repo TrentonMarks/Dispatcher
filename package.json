@@ -1,5 +1,7 @@
 {
   "name": "dispatcher_app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "tailwindcss": "^0.5.3"
+  }
 }
