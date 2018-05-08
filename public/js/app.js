@@ -660,7 +660,7 @@ class AppTable extends React.Component{
                         {this.props.state.showingCredit ?
                             this.props.state.allCredit.map((creditcard, index)=>{
                                 return  <div>
-                                            <h3>CREDIT</h3>
+                                            <h4>CREDIT</h4>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{creditcard.id}</em></p>
@@ -683,7 +683,7 @@ class AppTable extends React.Component{
                             this.props.state.showingOnline ?
                             this.props.state.allOnline.map((online, index)=>{
                                 return  <div>
-                                            <h3>ONLINE</h3>
+                                            <h4>ONLINE</h4>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{online.id}</em></p>
@@ -706,7 +706,7 @@ class AppTable extends React.Component{
                             this.props.state.showingCash ?
                             this.props.state.allCash.map((cash, index)=>{
                                 return  <div>
-                                            <h3>CASH</h3>
+                                            <h4>CASH</h4>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{cash.id}</em></p>
@@ -942,7 +942,7 @@ class UnappTable extends React.Component{
                             this.props.state.showingCredit ?
                             this.props.state.allCredit.map((creditcard, index)=>{
                                 return  <div>
-                                            <h3>CREDIT</h3>
+                                            <h4>CREDIT</h4>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{creditcard.id}</em></p>
@@ -965,7 +965,7 @@ class UnappTable extends React.Component{
                             this.props.state.showingOnline ?
                             this.props.state.allOnline.map((online, index)=>{
                                 return  <div>
-                                            <h3>ONLINE</h3>
+                                            <h4>ONLINE</h4>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{online.id}</em></p>
@@ -988,7 +988,7 @@ class UnappTable extends React.Component{
                             this.props.state.showingCash ?
                             this.props.state.allCash.map((cash, index)=>{
                                 return  <div>
-                                            <h3>CASH</h3>
+                                            <h4>CASH</h4>
                                             <tr>
                                                 <td>
                                                     <p>Order #: <em>{cash.id}</em></p>
@@ -1238,15 +1238,15 @@ class Header extends React.Component{
         return  <div>
 
                     {this.props.state.showingOrders ?
-                        <h1>Orders</h1>
+                        <h2>Orders</h2>
                     : ''}
 
                     {this.props.state.showingReceipts ?
-                        <h1>Receipts</h1>
+                        <h2>Receipts</h2>
                     : ''}
 
                     {this.props.state.showingStatistics ?
-                        <h1>Statistics</h1>
+                        <h2>Statistics</h2>
                     : ''}
 
                 </div>
