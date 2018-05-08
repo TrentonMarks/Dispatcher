@@ -78,11 +78,17 @@ class RestaurantsNav extends React.Component{
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
 
-                        <button onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
 
-                        <button onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
 
                     </form>
 
@@ -231,11 +237,17 @@ class DriversNav extends React.Component{
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
 
-                        <button onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
 
-                        <button onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
 
                     </form>
 
@@ -399,11 +411,17 @@ class HeadNav extends React.Component{
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
 
-                        <button onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
 
-                        <button onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
 
                     </form>
 
@@ -499,15 +517,21 @@ class StatisticsNav extends React.Component{
     render(){
         return  <div>
 
-                    <button onClick={()=>{
+                    <button
+                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                        onClick={()=>{
                         this.changeState('showingRestaurants', 'showingDrivers', 'showingHead')
                     }}>Restaurants</button>
 
-                    <button onClick={()=>{
+                    <button
+                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                        onClick={()=>{
                         this.changeState('showingDrivers', 'showingRestaurants', 'showingHead')
                     }}>Drivers</button>
 
-                    <button onClick={()=>{
+                    <button
+                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                        onClick={()=>{
                         this.changeState('showingHead', 'showingRestaurants', 'showingDrivers')
                     }}>Head</button>
 
@@ -633,11 +657,17 @@ class AppNav extends React.Component{
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingReceipt')}>Credit Card</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingReceipt')}>Credit Card</button>
 
-                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingReceipt')}>Online</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingReceipt')}>Online</button>
 
-                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingReceipt')}>Cash</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingReceipt')}>Cash</button>
 
                     </form>
 
@@ -670,7 +700,9 @@ class AppTable extends React.Component{
                                                     <p>Tip: <em>{creditcard.submitted_tip}</em></p>
                                                     <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
                                                     <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(creditcard)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
                                                     }}>View</button>
@@ -693,7 +725,9 @@ class AppTable extends React.Component{
                                                     <p>Tip: <em>{online.submitted_tip}</em></p>
                                                     <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
                                                     <p>Receipt Image: <em>{online.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(online)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
                                                     }}>View</button>
@@ -716,7 +750,9 @@ class AppTable extends React.Component{
                                                     <p>Tip: <em>{cash.submitted_tip}</em></p>
                                                     <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
                                                     <p>Receipt Image: <em>{cash.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(cash)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
                                                     }}>View</button>
@@ -738,7 +774,9 @@ class AppTable extends React.Component{
                                             <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
                                             <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
                                             <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
-                                            <button onClick={()=>{this.props.assignAsUnapproved(this.props.state.receipt)}}>Unapprove</button>
+                                            <button
+                                                class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{this.props.assignAsUnapproved(this.props.state.receipt)}}>Unapprove</button>
                                         </td>
                                     </tr>
                                 </div> : ''
@@ -909,13 +947,21 @@ class UnappNav extends React.Component{
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Credit Card</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Credit Card</button>
 
-                        <button onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Online</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingOnline', 'showingCredit', 'showingCash', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Online</button>
 
-                        <button onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Cash</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingCash', 'showingCredit', 'showingOnline', 'showingRetake', 'showingReceipt', 'showingEditForm')}>Cash</button>
 
-                        <button onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash', 'showingReceipt', 'showingEditForm')}>Retake</button>
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.changeState('showingRetake', 'showingCredit', 'showingOnline', 'showingCash', 'showingReceipt', 'showingEditForm')}>Retake</button>
 
                     </form>
 
@@ -952,7 +998,9 @@ class UnappTable extends React.Component{
                                                     <p>Tip: <em>{creditcard.submitted_tip}</em></p>
                                                     <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
                                                     <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(creditcard)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
                                                     }}>View</button>
@@ -975,7 +1023,9 @@ class UnappTable extends React.Component{
                                                     <p>Tip: <em>{online.submitted_tip}</em></p>
                                                     <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
                                                     <p>Receipt Image: <em>{online.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(online)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
                                                     }}>View</button>
@@ -998,7 +1048,9 @@ class UnappTable extends React.Component{
                                                     <p>Tip: <em>{cash.submitted_tip}</em></p>
                                                     <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
                                                     <p>Receipt Image: <em>{cash.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(cash)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
                                                     }}>View</button>
@@ -1021,7 +1073,9 @@ class UnappTable extends React.Component{
                                                     <p>Tip: <em>{retake.submitted_tip}</em></p>
                                                     <p>Driver: <em>{retake.first_name} {retake.last_name}</em></p>
                                                     <p>Receipt Image: <em>{retake.receipt_image}</em></p>
-                                                    <button onClick={()=>{
+                                                    <button
+                                                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                         this.props.getReceipt(retake)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake','showingEditForm')
                                                     }}>View</button>
@@ -1043,11 +1097,17 @@ class UnappTable extends React.Component{
                                             <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
                                             <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
                                             <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
-                                            <button onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button>
-                                            <button onClick={()=>{
+                                            <button
+                                                class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button>
+                                            <button
+                                                class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{
                                                 this.props.changeState('showingEditForm', 'showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
                                             }}>Edit</button>
-                                            <button onClick={()=>{this.props.assignAsApproved(this.props.state.receipt)}}>Approve</button>
+                                            <button
+                                                class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{this.props.assignAsApproved(this.props.state.receipt)}}>Approve</button>
                                         </td>
                                     </tr>
                                 </div> : ''
@@ -1173,9 +1233,13 @@ class EditForm extends React.Component{
                             placeholder={this.props.receipt.cash_tip}
                         />
 
-                        <input type='submit' />
+                        <input
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            type='submit' />
 
-                        <button onClick={()=>this.props.changeState('showingCredit', 'showingEditForm')}>Cancel
+                        <button
+                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            onClick={()=>this.props.changeState('showingCredit', 'showingEditForm')}>Cancel
                         </button>
 
                     </form>
@@ -1201,11 +1265,15 @@ class ReceiptsNav extends React.Component{
     render(){
         return  <div>
 
-                    <button onClick={()=>{
+                    <button
+                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                        onClick={()=>{
                         this.changeState('showingUnapproved', 'showingApproved')
                     }}>Unapproved</button>
 
-                    <button onClick={()=>{
+                    <button
+                        class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                        onClick={()=>{
                         this.changeState('showingApproved', 'showingUnapproved')
                     }}>Approved</button>
 
@@ -1237,17 +1305,31 @@ class Header extends React.Component{
     render(){
         return  <div>
 
-                    {this.props.state.showingOrders ?
-                        <h2>Orders</h2>
-                    : ''}
+                    <div class="flex items-center justify-between flex-wrap bg-grey-darkest p-6">
 
-                    {this.props.state.showingReceipts ?
-                        <h2>Receipts</h2>
-                    : ''}
+                        <div class="flex items-center flex-no-shrink text-white mr-8">
 
-                    {this.props.state.showingStatistics ?
-                        <h2>Statistics</h2>
-                    : ''}
+                            <span class="font-semibold text-3xl tracking-tight">Chop Chop</span>
+
+                        </div>
+
+                        <div class="flex items-center flex-no-shrink text-white mr-8">
+
+                        {this.props.state.showingOrders ?
+                            <span class="text-2xl tracking-tight">Orders</span>
+                        : ''}
+
+                        {this.props.state.showingReceipts ?
+                            <span class="text-2xl tracking-tight">Receipts</span>
+                        : ''}
+
+                        {this.props.state.showingStatistics ?
+                            <span class="text-2xl tracking-tight">Statistics</span>
+                        : ''}
+
+                        </div>
+
+                    </div>
 
                 </div>
     }
@@ -1277,17 +1359,27 @@ class MainNav extends React.Component{
                         state={this.state}
                     />
 
-                    <button onClick={()=>{
-                        this.changeState('showingOrders', 'showingReceipts', 'showingStatistics')
-                    }}>Orders</button>
+                    <div class="absolute pin-b w-full">
 
-                    <button onClick={()=>{
-                        this.changeState('showingReceipts', 'showingOrders', 'showingStatistics')
-                    }}>Receipts</button>
+                        <button
+                            class="bg-grey-darker hover:bg-grey-darkest text-white font-bold py-2 px-4 h-16 w-1/3"
+                            onClick={()=>{
+                            this.changeState('showingOrders', 'showingReceipts', 'showingStatistics')
+                        }}>Orders</button>
 
-                    <button onClick={()=>{
-                        this.changeState('showingStatistics', 'showingOrders', 'showingReceipts')
-                    }}>Statistics</button>
+                        <button
+                            class="bg-grey-darker hover:bg-grey-darkest text-white font-bold py-2 px-4 h-16 w-1/3"
+                            onClick={()=>{
+                            this.changeState('showingReceipts', 'showingOrders', 'showingStatistics')
+                        }}>Receipts</button>
+
+                        <button
+                            class="bg-grey-darker hover:bg-grey-darkest text-white font-bold py-2 px-4 h-16 w-1/3"
+                            onClick={()=>{
+                            this.changeState('showingStatistics', 'showingOrders', 'showingReceipts')
+                        }}>Statistics</button>
+
+                    </div>
 
                     {this.state.showingOrders ?
                         <OrdersNav state={this.state} />
@@ -1309,5 +1401,5 @@ class MainNav extends React.Component{
 // Renders: MainNav
 ReactDOM.render(
     <MainNav />,
-    document.querySelector('.container')
+    document.querySelector('.main')
 )
