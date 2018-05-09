@@ -539,7 +539,7 @@ class StatisticsNav extends React.Component{
         })
     }
     render(){
-        return  <div class="bg-grey-lightest">
+        return  <div>
 
                     {this.state.showingRestaurants ?
 
@@ -796,104 +796,100 @@ class AppNav extends React.Component{
 // Data Table for Approved CC, Online, and Cash Receipts
 class AppTable extends React.Component{
     render(){
-        return  <table>
-                    <tbody>
+        return  <table class="text-left m-4">
+                    <thead>
+                        <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
+                            <th class="py-4 px-6 border-b border-grey-light">ID</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Restaurant</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Ordered At</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Subtotal</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Tip</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Driver</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Receipt Image</th>
+                        </tr>
+                    </thead>
 
-                        {this.props.state.showingCredit ?
-                            this.props.state.allCredit.map((creditcard, index)=>{
-                                return  <div>
-                                            <h4>CREDIT</h4>
-                                            <tr>
-                                                <td>
-                                                    <p>Order #: <em>{creditcard.id}</em></p>
-                                                    <p>Restaurant: <em>{creditcard.name}</em></p>
-                                                    <p>Ordered At: <em>{creditcard.order_time}</em></p>
-                                                    <p>Subtotal: <em>{creditcard.order_subtotal}</em></p>
-                                                    <p>Tip: <em>{creditcard.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
-                                                    <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
-                                                    <button
-                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                        onClick={()=>{
-                                                        this.props.getReceipt(creditcard)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
-                                                    }}>View</button>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
+
+                    {this.props.state.showingCredit ?
+                        this.props.state.allCredit.map((creditcard, index)=>{
+                            return  <tbody>
+                                        <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                            <td class="py-4 px-6 border-b border-grey-light">{creditcard.id}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{creditcard.name}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{creditcard.ordered_at}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{creditcard.order_subtotal}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{creditcard.submitted_tip}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{creditcard.first_name} {creditcard.last_name}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light"><button
+                                                class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                onClick={()=>{
+                                                    this.props.getReceipt(creditcard)
+                                                    this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                }}>View</button></td>
+                                        </tr>
+                                    </tbody>
+                        }) : ''
+                    }
                         {
                             this.props.state.showingOnline ?
                             this.props.state.allOnline.map((online, index)=>{
-                                return  <div>
-                                            <h4>ONLINE</h4>
-                                            <tr>
-                                                <td>
-                                                    <p>Order #: <em>{online.id}</em></p>
-                                                    <p>Restaurant: <em>{online.name}</em></p>
-                                                    <p>Ordered At: <em>{online.order_time}</em></p>
-                                                    <p>Subtotal: <em>{online.order_subtotal}</em></p>
-                                                    <p>Tip: <em>{online.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
-                                                    <p>Receipt Image: <em>{online.receipt_image}</em></p>
-                                                    <button
-                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                        onClick={()=>{
+                                return  <tbody>
+                                            <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                <td class="py-4 px-6 border-b border-grey-light">{online.id}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{online.name}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{online.ordered_at}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{online.order_subtotal}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{online.submitted_tip}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{online.first_name} {online.last_name}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light"><button
+                                                    class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                    onClick={()=>{
                                                         this.props.getReceipt(online)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
-                                                    }}>View</button>
-                                                </td>
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                    }}>View</button></td>
                                             </tr>
-                                        </div>
+                                        </tbody>
                             }) : ''
                         }
                         {
                             this.props.state.showingCash ?
                             this.props.state.allCash.map((cash, index)=>{
-                                return  <div>
-                                            <h4>CASH</h4>
-                                            <tr>
-                                                <td>
-                                                    <p>Order #: <em>{cash.id}</em></p>
-                                                    <p>Restaurant: <em>{cash.name}</em></p>
-                                                    <p>Ordered At: <em>{cash.order_time}</em></p>
-                                                    <p>Subtotal: <em>{cash.order_subtotal}</em></p>
-                                                    <p>Tip: <em>{cash.submitted_tip}</em></p>
-                                                    <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
-                                                    <p>Receipt Image: <em>{cash.receipt_image}</em></p>
-                                                    <button
-                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                        onClick={()=>{
+                                return  <tbody>
+                                            <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                <td class="py-4 px-6 border-b border-grey-light">{cash.id}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{cash.name}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{cash.ordered_at}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{cash.order_subtotal}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{cash.submitted_tip}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light">{cash.first_name} {cash.last_name}</td>
+                                                <td class="py-4 px-6 border-b border-grey-light"><button
+                                                    class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                    onClick={()=>{
                                                         this.props.getReceipt(cash)
-                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
-                                                    }}>View</button>
-                                                </td>
+                                                        this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                    }}>View</button></td>
                                             </tr>
-                                        </div>
+                                        </tbody>
                             }) : ''
                         }
                         {
                             this.props.state.showingReceipt ?
-                                <div>
-                                    <h3>SHOW</h3>
-                                    <tr>
-                                        <td>
-                                            <p>Order #: <em>{this.props.state.receipt.id}</em></p>
-                                            <p>Restaurant: <em>{this.props.state.receipt.name}</em></p>
-                                            <p>Ordered At: <em>{this.props.state.receipt.order_time}</em></p>
-                                            <p>Subtotal: <em>{this.props.state.receipt.order_subtotal}</em></p>
-                                            <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
-                                            <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
-                                            <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
-                                            <button
+                                <tbody>
+                                        <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.id}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.name}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.ordered_at}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.order_subtotal}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.submitted_tip}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light"><button
                                                 class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                                                onClick={()=>{this.props.assignAsUnapproved(this.props.state.receipt)}}>Unapprove</button>
-                                        </td>
-                                    </tr>
-                                </div> : ''
+                                                onClick={()=>{this.props.assignAsUnapproved(this.props.state.receipt)}}>Unapprove</button></td>
+                                        </tr>
+                                    </tbody>
+                                 : ''
                         }
-                    </tbody>
+
                 </table>
 
     }
@@ -1100,137 +1096,127 @@ class UnappNav extends React.Component{
 // Data Table for Unapproved CC, Online, Cash, and Retake Receipts
 class UnappTable extends React.Component{
     render(){
-        return  <div>
-                    <table>
-                        <tbody>
+        return  <table class="text-left m-4">
+                    <thead>
+                        <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
+                            <th class="py-4 px-6 border-b border-grey-light">ID</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Restaurant</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Ordered At</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Subtotal</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Tip</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Driver</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Receipt Image</th>
+                        </tr>
+                    </thead>
 
                             {
                                 this.props.state.showingCredit ?
                                 this.props.state.allCredit.map((creditcard, index)=>{
-                                    return  <div>
-                                                <h4>CREDIT</h4>
-                                                <tr>
-                                                    <td>
-                                                        <p>Order #: <em>{creditcard.id}</em></p>
-                                                        <p>Restaurant: <em>{creditcard.name}</em></p>
-                                                        <p>Ordered At: <em>{creditcard.order_time}</em></p>
-                                                        <p>Subtotal: <em>{creditcard.order_subtotal}</em></p>
-                                                        <p>Tip: <em>{creditcard.submitted_tip}</em></p>
-                                                        <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
-                                                        <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
-                                                        <button
-                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                            onClick={()=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                    <td class="py-4 px-6 border-b border-grey-light">{creditcard.id}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{creditcard.name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{creditcard.ordered_at}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{creditcard.order_subtotal}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{creditcard.submitted_tip}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{creditcard.first_name} {creditcard.last_name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light"><button
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                             this.props.getReceipt(creditcard)
-                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
-                                                        }}>View</button>
-                                                    </td>
+                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        }}>View</button></td>
                                                 </tr>
-                                            </div>
+                                            </tbody>
                                 }) : ''
                             }
                             {
                                 this.props.state.showingOnline ?
                                 this.props.state.allOnline.map((online, index)=>{
-                                    return  <div>
-                                                <h4>ONLINE</h4>
-                                                <tr>
-                                                    <td>
-                                                        <p>Order #: <em>{online.id}</em></p>
-                                                        <p>Restaurant: <em>{online.name}</em></p>
-                                                        <p>Ordered At: <em>{online.order_time}</em></p>
-                                                        <p>Subtotal: <em>{online.order_subtotal}</em></p>
-                                                        <p>Tip: <em>{online.submitted_tip}</em></p>
-                                                        <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
-                                                        <p>Receipt Image: <em>{online.receipt_image}</em></p>
-                                                        <button
-                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                            onClick={()=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                    <td class="py-4 px-6 border-b border-grey-light">{online.id}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{online.name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{online.ordered_at}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{online.order_subtotal}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{online.submitted_tip}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{online.first_name} {online.last_name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light"><button
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                             this.props.getReceipt(online)
-                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
-                                                        }}>View</button>
-                                                    </td>
+                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        }}>View</button></td>
                                                 </tr>
-                                            </div>
+                                            </tbody>
                                 }) : ''
                             }
                             {
                                 this.props.state.showingCash ?
                                 this.props.state.allCash.map((cash, index)=>{
-                                    return  <div>
-                                                <h4>CASH</h4>
-                                                <tr>
-                                                    <td>
-                                                        <p>Order #: <em>{cash.id}</em></p>
-                                                        <p>Restaurant: <em>{cash.name}</em></p>
-                                                        <p>Ordered At: <em>{cash.order_time}</em></p>
-                                                        <p>Subtotal: <em>{cash.order_subtotal}</em></p>
-                                                        <p>Tip: <em>{cash.submitted_tip}</em></p>
-                                                        <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
-                                                        <p>Receipt Image: <em>{cash.receipt_image}</em></p>
-                                                        <button
-                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                            onClick={()=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                    <td class="py-4 px-6 border-b border-grey-light">{cash.id}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{cash.name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{cash.ordered_at}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{cash.order_subtotal}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{cash.submitted_tip}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{cash.first_name} {cash.last_name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light"><button
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                             this.props.getReceipt(cash)
-                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
-                                                        }}>View</button>
-                                                    </td>
+                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        }}>View</button></td>
                                                 </tr>
-                                            </div>
+                                            </tbody>
                                 }) : ''
                             }
                             {
                                 this.props.state.showingRetake ?
                                 this.props.state.allRetake.map((retake, index)=>{
-                                    return  <div>
-                                                <h3>RETAKE</h3>
-                                                <tr>
-                                                    <td>
-                                                        <p>Order #: <em>{retake.id}</em></p>
-                                                        <p>Restaurant: <em>{retake.name}</em></p>
-                                                        <p>Ordered At: <em>{retake.order_time}</em></p>
-                                                        <p>Subtotal: <em>{retake.order_subtotal}</em></p>
-                                                        <p>Tip: <em>{retake.submitted_tip}</em></p>
-                                                        <p>Driver: <em>{retake.first_name} {retake.last_name}</em></p>
-                                                        <p>Receipt Image: <em>{retake.receipt_image}</em></p>
-                                                        <button
-                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
-                                                            onClick={()=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                    <td class="py-4 px-6 border-b border-grey-light">{retake.id}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{retake.name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{retake.ordered_at}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{retake.order_subtotal}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{retake.submitted_tip}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light">{retake.first_name} {retake.last_name}</td>
+                                                    <td class="py-4 px-6 border-b border-grey-light"><button
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
+                                                        onClick={()=>{
                                                             this.props.getReceipt(retake)
-                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake','showingEditForm')
-                                                        }}>View</button>
-                                                    </td>
+                                                            this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                        }}>View</button></td>
                                                 </tr>
-                                            </div>
+                                            </tbody>
                                 }) : ''
                             }
                             {
                                 this.props.state.showingReceipt ?
-                                    <div>
-                                        <h3>SHOW</h3>
-                                        <tr>
-                                            <td>
-                                                <p>Order #: <em>{this.props.state.receipt.id}</em></p>
-                                                <p>Restaurant: <em>{this.props.state.receipt.name}</em></p>
-                                                <p>Ordered At: <em>{this.props.state.receipt.order_time}</em></p>
-                                                <p>Subtotal: <em>{this.props.state.receipt.order_subtotal}</em></p>
-                                                <p>Tip: <em>{this.props.state.receipt.submitted_tip}</em></p>
-                                                <p>Driver: <em>{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</em></p>
-                                                <p>Receipt Image: <em>{this.props.state.receipt.receipt_image}</em></p>
-                                                <button
-                                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                                                    onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button>
-                                                <button
-                                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                                                    onClick={()=>{
-                                                    this.props.changeState('showingEditForm', 'showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
-                                                }}>Edit</button>
-                                                <button
-                                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                                                    onClick={()=>{this.props.assignAsApproved(this.props.state.receipt)}}>Approve</button>
-                                            </td>
+                                    <tbody>
+                                        <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.id}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.name}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.ordered_at}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.order_subtotal}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.submitted_tip}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.receipt_image}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light"><button
+                                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button></td>
+                                            <td class="py-4 px-6 border-b border-grey-light"><button
+                                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{
+                                                this.props.changeState('showingEditForm', 'showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake')
+                                                }}>Edit</button></td>
+                                            <td class="py-4 px-6 border-b border-grey-light"><button
+                                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                onClick={()=>{this.props.assignAsApproved(this.props.state.receipt)}}>Approve</button></td>
                                         </tr>
-                                    </div> : ''
+                                    </tbody> : ''
                             }
                             {
                                 this.props.state.showingEditForm ?
@@ -1242,9 +1228,7 @@ class UnappTable extends React.Component{
                                         />
                                     </div> : ''
                             }
-                        </tbody>
-                    </table>
-                </div>
+                </table>
     }
 }
 // Form Within Show-Page to Edit Submitted Receipts
@@ -1384,7 +1368,7 @@ class ReceiptsNav extends React.Component{
         })
     }
     render(){
-        return  <div class="bg-grey-lightest">
+        return  <div>
 
                     {this.state.showingUnapproved ?
 
@@ -1393,7 +1377,7 @@ class ReceiptsNav extends React.Component{
                             <ul class="list-reset flex border-b bg-white">
                                 <li class="-mb-px mr-1">
                                     <button
-                                        class="bg-grey-light inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-grey-darkest font-semibold"
+                                        class="bg-grey-lighter inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-grey-darkest font-semibold"
                                         onClick={()=>{
                                             this.changeState('showingUnapproved', 'showingApproved')
                                         }}
@@ -1430,7 +1414,7 @@ class ReceiptsNav extends React.Component{
                                 </li>
                                 <li class="-mb-px mr-1">
                                     <button
-                                        class="bg-grey-light inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-grey-darkest font-semibold"
+                                        class="bg-grey-lighter inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-grey-darkest font-semibold"
                                         onClick={()=>{
                                             this.changeState('showingApproved', 'showingUnapproved')
                                         }}
