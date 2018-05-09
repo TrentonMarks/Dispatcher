@@ -1203,7 +1203,6 @@ class UnappTable extends React.Component{
                                             <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.order_subtotal}</td>
                                             <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.submitted_tip}</td>
                                             <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.first_name} {this.props.state.receipt.last_name}</td>
-                                            <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.receipt_image}</td>
                                             <td class="py-4 px-6 border-b border-grey-light"><button
                                                 class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
                                                 onClick={()=>{this.props.assignAsRetake(this.props.state.receipt)}}>Retake</button></td>
