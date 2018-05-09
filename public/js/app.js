@@ -74,21 +74,29 @@ class RestaurantsNav extends React.Component{
             }).catch(error => console.log(error))
     }
     render(){
-        return  <div>
+        return  <div class="m-2 p-4">
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button
-                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                        <ul class="list-reset flex border-b">
+                            <li class="-mb-px mr-1">
+                                <button
+                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                    onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                            </li>
+                            <li class="mr-1">
+                                <button
+                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                    onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                            </li>
+                            <li>
+                            <button
+                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
 
-                        <button
-                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                            </li>
 
-                        <button
-                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+                        </ul>
 
                     </form>
 
@@ -233,21 +241,29 @@ class DriversNav extends React.Component{
             }).catch(error => console.log(error))
     }
     render(){
-        return  <div>
+        return  <div class="m-2 p-4">
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <button
-                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                        <ul class="list-reset flex border-b">
+                            <li class="-mb-px mr-1">
+                                <button
+                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                    onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                            </li>
+                            <li class="mr-1">
+                                <button
+                                    class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                    onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                            </li>
+                            <li>
+                            <button
+                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
 
-                        <button
-                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                            </li>
 
-                        <button
-                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+                        </ul>
 
                     </form>
 
@@ -407,21 +423,29 @@ class HeadNav extends React.Component{
             }).catch(error => console.log(error))
     }
     render(){
-        return  <div>
+        return  <div class="m-2 p-4">
 
                     <form onSubmit={this.handleSubmit}>
 
+                    <ul class="list-reset flex border-b">
+                        <li class="-mb-px mr-1">
+                            <button
+                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
+                        </li>
+                        <li class="mr-1">
+                            <button
+                                class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
+                        </li>
+                        <li>
                         <button
-                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingDay', 'showingWeek', 'showingMonth')}>Day</button>
-
-                        <button
-                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-                            onClick={()=>this.changeState('showingWeek', 'showingDay', 'showingMonth')}>Week</button>
-
-                        <button
-                            class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
                             onClick={()=>this.changeState('showingMonth', 'showingDay', 'showingWeek')}>Month</button>
+
+                        </li>
+
+                    </ul>
 
                     </form>
 
@@ -517,34 +541,126 @@ class StatisticsNav extends React.Component{
     render(){
         return  <div>
 
-                    <button
-                        class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                        onClick={()=>{
-                        this.changeState('showingRestaurants', 'showingDrivers', 'showingHead')
-                    }}>Restaurants</button>
-
-                    <button
-                        class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                        onClick={()=>{
-                        this.changeState('showingDrivers', 'showingRestaurants', 'showingHead')
-                    }}>Drivers</button>
-
-                    <button
-                        class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
-                        onClick={()=>{
-                        this.changeState('showingHead', 'showingRestaurants', 'showingDrivers')
-                    }}>Head</button>
-
                     {this.state.showingRestaurants ?
-                        <RestaurantsNav />
+                        <div>
+
+                            <ul class="list-reset flex border-b">
+                                <li class="-mb-px mr-1">
+                                    <button
+                                        class="bg-grey-lightest inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-blue-dark font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingRestaurants', 'showingDrivers', 'showingHead')
+                                        }}
+                                    >Restaurants</button>
+                                </li>
+                                <li class="mr-1">
+                                    <button
+                                        class="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingDrivers', 'showingRestaurants', 'showingHead')
+                                        }}
+                                    >Drivers</button>
+                                </li>
+                                <li class="mr-1">
+                                    <button
+                                        class="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingHead', 'showingRestaurants', 'showingDrivers')
+                                        }}
+                                    >Head</button>
+                                </li>
+                            </ul>
+
+                            <div class="bg-grey">
+                                <div>
+                                    <RestaurantsNav />
+                                </div>
+                            </div>
+
+                        </div>
+
                     : ''}
 
                     {this.state.showingDrivers ?
-                        <DriversNav />
+
+                        <div>
+
+                            <ul class="list-reset flex border-b">
+                                <li class="mr-1">
+                                    <button
+                                        class="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingRestaurants', 'showingDrivers', 'showingHead')
+                                        }}
+                                    >Restaurants</button>
+                                </li>
+                                <li class="-mb-px mr-1">
+                                    <button
+                                        class="bg-grey-lightest inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-blue-dark font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingDrivers', 'showingRestaurants', 'showingHead')
+                                        }}
+                                    >Drivers</button>
+                                </li>
+                                <li class="mr-1">
+                                    <button
+                                        class="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingHead', 'showingRestaurants', 'showingDrivers')
+                                        }}
+                                    >Head</button>
+                                </li>
+                            </ul>
+
+                            <div class="bg-grey">
+                                <div>
+                                    <DriversNav />
+                                </div>
+                            </div>
+
+                        </div>
+
                     : ''}
 
                     {this.state.showingHead ?
-                        <HeadNav />
+
+                        <div>
+
+                            <ul class="list-reset flex border-b">
+                                <li class="mr-1">
+                                    <button
+                                        class="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingRestaurants', 'showingDrivers', 'showingHead')
+                                        }}
+                                    >Restaurants</button>
+                                </li>
+                                <li class="mr-1">
+                                    <button
+                                        class="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingDrivers', 'showingRestaurants', 'showingHead')
+                                        }}
+                                    >Drivers</button>
+                                </li>
+                                <li class="-mb-px mr-1">
+                                    <button
+                                        class="bg-grey-lightest inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-blue-dark font-semibold"
+                                        onClick={()=>{
+                                            this.changeState('showingHead', 'showingRestaurants', 'showingDrivers')
+                                        }}
+                                    >Head</button>
+                                </li>
+                            </ul>
+
+                            <div class="bg-grey">
+                                <div>
+                                    <HeadNav />
+                                </div>
+                            </div>
+
+                        </div>
+
                     : ''}
 
                 </div>
@@ -1265,7 +1381,7 @@ class ReceiptsNav extends React.Component{
         })
     }
     render(){
-        return  <div class="m-2 p-4">
+        return  <div class="m-0">
 
                     {this.state.showingUnapproved ?
 
@@ -1274,7 +1390,7 @@ class ReceiptsNav extends React.Component{
                             <ul class="list-reset flex border-b">
                                 <li class="-mb-px mr-1">
                                     <button
-                                        class="bg-grey-lightest inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-dark font-semibold"
+                                        class="bg-grey-lightest inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-blue-dark font-semibold"
                                         onClick={()=>{
                                             this.changeState('showingUnapproved', 'showingApproved')
                                         }}
@@ -1311,7 +1427,7 @@ class ReceiptsNav extends React.Component{
                                 </li>
                                 <li class="-mb-px mr-1">
                                     <button
-                                        class="bg-grey-lightest inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-dark font-semibold"
+                                        class="bg-grey-lightest inline-block border-b-2 border-teal-light rounded-t py-2 px-4 text-blue-dark font-semibold"
                                         onClick={()=>{
                                             this.changeState('showingApproved', 'showingUnapproved')
                                         }}
@@ -1344,7 +1460,7 @@ class Header extends React.Component{
     render(){
         return  <div>
 
-                    <div class="flex items-center justify-between flex-wrap bg-grey-darker p-6">
+                    <div class="flex items-center justify-between flex-wrap bg-grey-darkest p-6">
 
                         <div class="flex items-center flex-no-shrink text-white mr-8">
 
