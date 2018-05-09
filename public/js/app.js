@@ -813,7 +813,7 @@ class AppTable extends React.Component{
                                                     <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
                                                     <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
                                                     <button
-                                                        class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                         onClick={()=>{
                                                         this.props.getReceipt(creditcard)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
@@ -838,7 +838,7 @@ class AppTable extends React.Component{
                                                     <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
                                                     <p>Receipt Image: <em>{online.receipt_image}</em></p>
                                                     <button
-                                                        class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                         onClick={()=>{
                                                         this.props.getReceipt(online)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
@@ -863,7 +863,7 @@ class AppTable extends React.Component{
                                                     <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
                                                     <p>Receipt Image: <em>{cash.receipt_image}</em></p>
                                                     <button
-                                                        class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                        class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                         onClick={()=>{
                                                         this.props.getReceipt(cash)
                                                         this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash')
@@ -1119,7 +1119,7 @@ class UnappTable extends React.Component{
                                                         <p>Driver: <em>{creditcard.first_name} {creditcard.last_name}</em></p>
                                                         <p>Receipt Image: <em>{creditcard.receipt_image}</em></p>
                                                         <button
-                                                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                             onClick={()=>{
                                                             this.props.getReceipt(creditcard)
                                                             this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
@@ -1144,7 +1144,7 @@ class UnappTable extends React.Component{
                                                         <p>Driver: <em>{online.first_name} {online.last_name}</em></p>
                                                         <p>Receipt Image: <em>{online.receipt_image}</em></p>
                                                         <button
-                                                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                             onClick={()=>{
                                                             this.props.getReceipt(online)
                                                             this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
@@ -1169,7 +1169,7 @@ class UnappTable extends React.Component{
                                                         <p>Driver: <em>{cash.first_name} {cash.last_name}</em></p>
                                                         <p>Receipt Image: <em>{cash.receipt_image}</em></p>
                                                         <button
-                                                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                             onClick={()=>{
                                                             this.props.getReceipt(cash)
                                                             this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake', 'showingEditForm')
@@ -1194,7 +1194,7 @@ class UnappTable extends React.Component{
                                                         <p>Driver: <em>{retake.first_name} {retake.last_name}</em></p>
                                                         <p>Receipt Image: <em>{retake.receipt_image}</em></p>
                                                         <button
-                                                            class="bg-grey hover:bg-grey-dark text-white font-bold py-2 px-4 rounded"
+                                                            class="bg-teal-light border border-teal text-white hover:bg-teal hover:border-teal-dark  hover:text-grey-lightest py-2 px-4 rounded"
                                                             onClick={()=>{
                                                             this.props.getReceipt(retake)
                                                             this.props.changeState('showingReceipt', 'showingCredit', 'showingOnline', 'showingCash', 'showingRetake','showingEditForm')
