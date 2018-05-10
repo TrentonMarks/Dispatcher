@@ -463,62 +463,61 @@ class HeadNav extends React.Component{
 // Data Table for Head Tab
 class HeadTable extends React.Component{
     render(){
-        return  <table>
-                    <tbody>
+        return  <table class="text-left m-4">
+                    <thead>
+                        <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
+                            <th class="py-4 px-6 border-b border-grey-light">Restaurant</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Total Deliveries</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Delivery Fees</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Tips Collected</th>
+                            <th class="py-4 px-6 border-b border-grey-light">10% of Sales</th>
+                            <th class="py-4 px-6 border-b border-grey-light">Amount Owed by Restaurant</th>
+                        </tr>
+                    </thead>
 
-                        {this.props.state.showingDay ?
-                            this.props.state.allDay.map((day, index)=>{
-                                return  <div>
-                                            <h3>Day</h3>
-                                            <tr>
-                                                <td>
-                                                    <p> Restaurant Name: <em>{day.name}</em></p>
-                                                    <p>Total Deliveries: <em>{day.total_deliveries}</em></p>
-                                                    <p>Delivery Fees: <em>{day.delivery_fees}</em></p>
-                                                    <p>Tips Collected: <em>{day.tips_collected}</em></p>
-                                                    <p>10% of Sales: <em>{day.ten_percent_of_sales}</em></p>
-                                                    <p>Amount Owed by Restaurant: <em>{day.owed_by_restaurant}</em></p>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
-                        {this.props.state.showingWeek ?
-                            this.props.state.allWeek.map((week, index)=>{
-                                return  <div>
-                                            <h3>Week</h3>
-                                            <tr>
-                                                <td>
-                                                    <p> Restaurant Name: <em>{week.name}</em></p>
-                                                    <p>Total Deliveries: <em>{week.total_deliveries}</em></p>
-                                                    <p>Delivery Fees: <em>{week.delivery_fees}</em></p>
-                                                    <p>Tips Collected: <em>{week.tips_collected}</em></p>
-                                                    <p>10% of Sales: <em>{week.ten_percent_of_sales}</em></p>
-                                                    <p>Amount Owed by Restaurant: <em>{week.owed_by_restaurant}</em></p>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
-                        {this.props.state.showingMonth ?
-                            this.props.state.allMonth.map((month, index)=>{
-                                return  <div>
-                                            <h3>Month</h3>
-                                            <tr>
-                                                <td>
-                                                    <p> Restaurant Name: <em>{month.name}</em></p>
-                                                    <p>Total Deliveries: <em>{month.total_deliveries}</em></p>
-                                                    <p>Delivery Fees: <em>{month.delivery_fees}</em></p>
-                                                    <p>Tips Collected: <em>{month.tips_collected}</em></p>
-                                                    <p>10% of Sales: <em>{month.ten_percent_of_sales}</em></p>
-                                                    <p>Amount Owed by Restaurant: <em>{month.owed_by_restaurant}</em></p>
-                                                </td>
-                                            </tr>
-                                        </div>
-                            }) : ''
-                        }
+                            {this.props.state.showingDay ?
+                                this.props.state.allDay.map((day, index)=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                        <td class="py-4 px-6 border-b border-grey-light">{day.name}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{day.total_deliveries}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{day.delivery_fees}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{day.tips_collected}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{day.ten_percent_of_sales}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{day.owed_by_restaurant}</td>
+                                                </tr>
+                                            </tbody>
+                                }) : ''
+                            }
+                            {this.props.state.showingWeek ?
+                                this.props.state.allWeek.map((week, index)=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                        <td class="py-4 px-6 border-b border-grey-light">{week.name}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{week.total_deliveries}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{week.delivery_fees}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{week.tips_collected}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{week.ten_percent_of_sales}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{week.owed_by_restaurant}</td>
+                                                </tr>
+                                            </tbody>
+                                }) : ''
+                            }
+                            {this.props.state.showingMonth ?
+                                this.props.state.allMonth.map((month, index)=>{
+                                    return  <tbody>
+                                                <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
+                                                        <td class="py-4 px-6 border-b border-grey-light">{month.name}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{month.total_deliveries}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{month.delivery_fees}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{month.tips_collected}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{month.ten_percent_of_sales}</td>
+                                                        <td class="py-4 px-6 border-b border-grey-light">{month.owed_by_restaurant}</td>
+                                                </tr>
+                                            </tbody>
+                                }) : ''
+                            }
 
-                    </tbody>
                 </table>
     }
 }
@@ -833,8 +832,7 @@ class AppTable extends React.Component{
                                     </tbody>
                         }) : ''
                     }
-                        {
-                            this.props.state.showingOnline ?
+                    {this.props.state.showingOnline ?
                             this.props.state.allOnline.map((online, index)=>{
                                 return  <tbody>
                                             <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
@@ -854,8 +852,7 @@ class AppTable extends React.Component{
                                         </tbody>
                             }) : ''
                         }
-                        {
-                            this.props.state.showingCash ?
+                    {this.props.state.showingCash ?
                             this.props.state.allCash.map((cash, index)=>{
                                 return  <tbody>
                                             <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
@@ -875,8 +872,7 @@ class AppTable extends React.Component{
                                         </tbody>
                             }) : ''
                         }
-                        {
-                            this.props.state.showingReceipt ?
+                    {this.props.state.showingReceipt ?
                                 <tbody>
                                         <tr class="bg-white font-sans font-light text-sm text-grey-dark text-center hover:bg-blue-lightest">
                                             <td class="py-4 px-6 border-b border-grey-light">{this.props.state.receipt.id}</td>
