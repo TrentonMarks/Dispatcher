@@ -112,7 +112,7 @@ class RestaurantsNav extends React.Component{
 class RestaurantsTable extends React.Component{
     render(){
         return  <div class="h-80vh overflow-auto">
-                    <table class="text-left m-4">
+                    <table class="table text-left m-4 border border-grey-light">
                         <thead>
                             <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
                                 <th class="py-4 px-6 border-b border-grey-light">Restaurant</th>
@@ -279,7 +279,7 @@ class DriversNav extends React.Component{
 class DriversTable extends React.Component{
     render(){
         return  <div class="h-80vh overflow-auto">
-                    <table class="text-left m-4">
+                    <table class="table text-left m-4 border border-grey-light">
                         <thead>
                             <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
                                 <th class="py-4 px-6 border-b border-grey-light">Driver</th>
@@ -468,7 +468,7 @@ class HeadNav extends React.Component{
 class HeadTable extends React.Component{
     render(){
         return  <div class="h-80vh overflow-auto">
-                    <table class="text-left m-4">
+                    <table class="table text-left m-4 border border-grey-light">
                         <thead>
                             <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
                                 <th class="py-4 px-6 border-b border-grey-light">Restaurant</th>
@@ -805,7 +805,7 @@ class AppNav extends React.Component{
 class AppTable extends React.Component{
     render(){
         return  <div class="h-80vh overflow-auto">
-                    <table class="text-left m-4">
+                    <table class="table text-left m-4 border border-grey-light">
                         <thead>
                             <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
                                 <th class="py-4 px-6 border-b border-grey-light">ID</th>
@@ -1102,8 +1102,8 @@ class UnappNav extends React.Component{
 // Data Table for Unapproved CC, Online, Cash, and Retake Receipts
 class UnappTable extends React.Component{
     render(){
-        return  <div class="h-80vh overflow-auto">
-                    <table class="text-left m-4">
+        return  <div class="max-h-75vh overflow-auto">
+                    <table class="table text-left m-4 border border-grey-light">
                         <thead>
                             <tr class="bg-white font-sans font-medium text-sm text-grey-dark text-center">
                                 <th class="py-4 px-6 border-b border-grey-light">ID</th>
@@ -1465,15 +1465,15 @@ class Header extends React.Component{
                         <div class="flex items-center flex-no-shrink text-white mr-8">
 
                         {this.props.state.showingOrders ?
-                            <span class="text-2xl tracking-tight">Orders</span>
+                            <span class="text-2xl text-teal-light">Orders</span>
                         : ''}
 
                         {this.props.state.showingReceipts ?
-                            <span class="text-2xl tracking-tight">Receipts</span>
+                            <span class="text-2xl text-teal-light">Receipts</span>
                         : ''}
 
                         {this.props.state.showingStatistics ?
-                            <span class="text-2xl tracking-tight">Statistics</span>
+                            <span class="text-2xl text-teal-light">Statistics</span>
                         : ''}
 
                         </div>

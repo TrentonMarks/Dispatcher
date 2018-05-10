@@ -2217,6 +2217,8 @@ button,
 
 .table {
   display: table;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 
 .table-row {
@@ -2861,6 +2863,10 @@ button,
 
 .max-h-screen {
   max-height: 100vh;
+}
+
+.max-h-75vh {
+    max-height: 75vh;
 }
 
 .max-w-xs {
@@ -4387,6 +4393,10 @@ button,
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.w-0 {
+    width: 0;
 }
 
 .w-1 {
